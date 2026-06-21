@@ -35,16 +35,33 @@
   font-weight: 500;
   color: var(--text-body);
   opacity: 0.92;
-  transition: opacity var(--dur-fast);
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition:
+    opacity var(--dur-fast),
+    color var(--dur-fast),
+    border-color var(--dur-fast);
 }
 
 .link:hover {
   opacity: 1;
 }
 
-/* Over a dark surface (hero) the links turn white. */
+/* Active tab — the page you're currently on. */
+.active {
+  color: var(--color-brand);
+  font-weight: 600;
+  opacity: 1;
+  border-bottom-color: var(--color-brand);
+}
+
+/* Over a dark surface (hero) the links turn white; the active tab goes sunrise. */
 .onDark .link {
   color: #fff;
+}
+.onDark .active {
+  color: var(--anu-sun-300);
+  border-bottom-color: var(--anu-sun-300);
 }
 
 /* The nav links beyond the brand collapse on narrow screens; the primary

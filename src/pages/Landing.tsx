@@ -134,7 +134,7 @@ function Hero({ onNav }: { onNav: OnNav }) {
     <header className={styles.hero}>
       <img className={styles.heroBg} src={heroPeaks} alt="" />
       <div className={styles.heroInner}>
-        <Nav onNav={onNav} dark />
+        <Nav onNav={onNav} active="home" dark />
         <div className={styles.heroContent}>
           <Eyebrow light>अनुभूति · Youth opportunity platform</Eyebrow>
           <h1 className={styles.heroTitle}>

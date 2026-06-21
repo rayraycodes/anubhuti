@@ -95,7 +95,7 @@ const VALUES: [icon: string, title: string][] = [
 function AboutHero({ onNav }: { onNav: OnNav }) {
   return (
     <header className={styles.aboutHero}>
-      <Nav onNav={onNav} />
+      <Nav onNav={onNav} active="about" />
       <div className={styles.aboutHeroInner}>
         <img className={styles.flags} src={prayerFlags} alt="" />
         <Eyebrow>Our story · हाम्रो कथा</Eyebrow>

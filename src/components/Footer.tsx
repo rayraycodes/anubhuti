@@ -1,13 +1,39 @@
 import { Icon } from './Icon';
-import type { OnNav } from '../types';
+import type { NavTarget, OnNav } from '../types';
 import logoWordmarkLight from '../assets/logo-wordmark-light.svg';
 import ridgeline from '../assets/ridgeline.svg';
 import styles from './Footer.module.css';
 
-const COLUMNS: [title: string, items: string[]][] = [
-  ['Platform', ['Browse opportunities', 'Project marketplace', 'For organizations', 'Mentorship']],
-  ['Anubhuti', ['Our vision', 'Values', 'Partners', 'Join the team']],
-  ['Support', ['Help centre', 'Contact', 'Privacy', 'Terms']],
+type FooterLink = [label: string, to: NavTarget];
+
+const COLUMNS: [title: string, items: FooterLink[]][] = [
+  [
+    'Platform',
+    [
+      ['Browse opportunities', 'home'],
+      ['Project marketplace', 'projects'],
+      ['For organizations', 'circle'],
+      ['Mentorship', 'circle'],
+    ],
+  ],
+  [
+    'Anubhuti',
+    [
+      ['Our vision', 'about'],
+      ['Values', 'about'],
+      ['Partners', 'circle'],
+      ['Join the team', 'circle'],
+    ],
+  ],
+  [
+    'Support',
+    [
+      ['Help centre', 'home'],
+      ['Contact', 'circle'],
+      ['Privacy', 'home'],
+      ['Terms', 'home'],
+    ],
+  ],
 ];
 
 const SOCIALS = ['instagram', 'facebook', 'linkedin', 'youtube'] as const;
@@ -38,9 +64,9 @@ export function Footer({ onNav }: FooterProps) {
         {COLUMNS.map(([title, items]) => (
           <div key={title} className={styles.col}>
             <div className={styles.colTitle}>{title}</div>
-            {items.map((item) => (
-              <a key={item} className={styles.colLink} onClick={() => onNav?.('platform')}>
-                {item}
+            {items.map(([label, to]) => (
+              <a key={label} className={styles.colLink} onClick={() => onNav?.(to)}>
+                {label}
               </a>
             ))}
           </div>

@@ -6,19 +6,21 @@ import logoWordmarkLight from '../assets/logo-wordmark-light.svg';
 import styles from './Nav.module.css';
 
 const LINKS: [label: string, to: NavTarget][] = [
-  ['Opportunities', 'platform'],
-  ['Projects', 'platform'],
+  ['Opportunities', 'home'],
+  ['Projects', 'projects'],
   ['About', 'about'],
-  ['Circle', 'about'],
+  ['Circle', 'circle'],
 ];
 
 export interface NavProps {
   onNav: OnNav;
+  /** The current page, so its nav tab can be highlighted. */
+  active?: NavTarget;
   /** Render over a dark surface (the Landing hero). */
   dark?: boolean;
 }
 
-export function Nav({ onNav, dark }: NavProps) {
+export function Nav({ onNav, active, dark }: NavProps) {
   return (
     <nav className={[styles.nav, dark && styles.onDark].filter(Boolean).join(' ')}>
       <a className={styles.logo} onClick={() => onNav('home')}>
@@ -26,7 +28,14 @@ export function Nav({ onNav, dark }: NavProps) {
       </a>
       <div className={styles.links}>
         {LINKS.map(([label, to], i) => (
-          <a key={i} className={`${styles.link} ${styles.textLink}`} onClick={() => onNav(to)}>
+          <a
+            key={i}
+            className={[styles.link, styles.textLink, to === active && styles.active]
+              .filter(Boolean)
+              .join(' ')}
+            aria-current={to === active ? 'page' : undefined}
+            onClick={() => onNav(to)}
+          >
             {label}
           </a>
         ))}
