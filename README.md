@@ -5,20 +5,37 @@ opportunity platform for Nepal. This is a production implementation of the
 `ui_kits/marketing/index.html` design from the **Anubhuti Design System** handoff
 (Claude Design), built as a real React app.
 
-It renders four pages with in-page navigation; the active nav tab is highlighted
+It renders five pages with in-page navigation; the active nav tab is highlighted
 (`aria-current="page"`):
 
-- **Landing** (`home`) — hero + search, category row, deadline feed & live-projects
-  marketplace, the four-move model, stats & partners, and a CTA band.
-- **Projects** (`projects`) — the project marketplace: a grid of sample projects with
-  status, skill tags, location and deadlines, plus a "post a project" CTA.
-- **About** (`about`) — story hero, vision band, the problem, the four-move approach,
-  values, and a CTA.
-- **Circle** (`circle`) — the partner network (OLE Nepal, Rotaract, Toastmasters, Leo
-  District, Code for Nepal and more), a stat strip, the diaspora-mentor band, and a CTA.
+- **Landing** (`home`) — hero with a working search (query + region), real category
+  tiles, the open-opportunities feed, the four-move model, derived stats & partners.
+- **Opportunities** (`browse`) — the explorer: live text search, region filter, category
+  chips, a result count, and an apply-at-source detail dialog.
+- **Projects** (`projects`) — the project marketplace: sample projects with status, skill
+  tags, location and deadlines, plus a "post a project" CTA.
+- **About** (`about`) — story hero, vision band, the gaps we want to close, the four-move
+  approach, values, and a CTA.
+- **Circle** (`circle`) — the partner network (Rotary, Rotaract, Leo, Lions, Toastmasters,
+  OLE Nepal), derived figures, the diaspora-mentor band, and a CTA.
 
 The Landing + About pages mirror the design system's `Landing.jsx` / `About.jsx`; the
-Projects and Circle pages extend the kit using the same DS primitives and tokens.
+Opportunities, Projects and Circle pages extend the kit using the same DS primitives.
+
+## Data & interactivity
+
+- **Real opportunities.** `src/data/opportunities.ts` holds ~22 real, source-linked
+  programs relevant to Nepali youth (Teach For Nepal, Daayitwa, Fulbright/USEF, Chevening,
+  Kathmandu/Tribhuvan University, Hult Prize Nepal, DeerHack, Glocal, VIN, UNDP, …).
+  Deadlines are the real dates where known, else `null` (rolling/annual) — never invented.
+  Days-left, "Rolling" and "Closed" are computed at runtime from the real date.
+- **Search & filter.** `filterOpportunities` / `sortByDeadline` power the explorer and the
+  Landing feed; the hero search and category tiles deep-link into the explorer with filters
+  pre-applied.
+- **Post an opportunity.** The post dialog adds an opportunity to the list (shown with a
+  *Posted* badge) and persists it to `localStorage` — no backend required.
+- **Honest numbers.** Headline stats and category counts are derived from the data, not
+  hard-coded vanity figures.
 
 ## Stack
 
@@ -58,13 +75,16 @@ To ship an update: commit to `main`, then `npm run deploy`.
 ```
 src/
   main.tsx                # React entry
-  App.tsx                 # in-page router: Landing / Projects / About / Circle
+  App.tsx                 # in-page router + posted-opportunity state + modals
+  app-actions.ts          # AppActions (onNav / goBrowse / openDetail / openPost)
   types.ts                # NavTarget / Page / OnNav
+  data/                   # opportunities.ts (real data + helpers), partners.ts
   styles/
     global.css            # token @imports + base/reset + .container
     tokens/               # colors, typography, fonts, spacing, effects (verbatim from the DS)
-  components/             # Button, Badge, Eyebrow, Nav, Footer, OppCard, Icon
-  pages/                  # Landing, Projects, About, Circle (+ .module.css each)
+  components/             # Button, Badge, Eyebrow, Nav, Footer, Icon, OppCard,
+                          #   OpportunityCard, Modal, OpportunityModal, PostOpportunityModal
+  pages/                  # Landing, Browse, Projects, About, Circle (+ .module.css each)
   assets/                 # brand SVGs (hero, ridgeline, prayer flags, wordmarks)
 public/
   favicon.svg            # Anubhuti logo mark
