@@ -1,0 +1,64 @@
+/* Anubhuti — global stylesheet.
+   Mirrors the design system's styles.css entry point (token @imports) and adds
+   the base/reset rules the marketing index.html declared inline. */
+@import './tokens/fonts.css';
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/effects.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  font-family: var(--font-sans);
+  color: var(--text-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--anu-crimson-200);
+}
+
+/* Shared layout container — the prototype's <Section>/<Sec> inner wrapper. */
+.container {
+  max-width: var(--container-xl); /* 1320px */
+  margin: 0 auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+/* The About kit uses a slightly narrower measure (1180px) for its sections. */
+.container--narrow {
+  max-width: 1180px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
+}

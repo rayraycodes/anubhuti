@@ -1,0 +1,15 @@
+<svg width="248" height="64" viewBox="0 0 248 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anubhuti">
+  <defs>
+    <clipPath id="anuRoundW"><rect width="64" height="64" rx="16"></rect></clipPath>
+  </defs>
+  <g clip-path="url(#anuRoundW)">
+    <rect width="64" height="64" fill="#C8243E"></rect>
+    <circle cx="32" cy="30" r="11" fill="#E8941F"></circle>
+    <path d="M2 56 L24 24 L40 56 Z" fill="#831428"></path>
+    <path d="M30 56 L46 20 L62 56 Z" fill="#FCFAF6"></path>
+    <path d="M46 20 L52 33 L48 31 L46 35 L44 31 L40 33 Z" fill="#C8243E"></path>
+    <rect x="0" y="54" width="64" height="10" fill="#831428"></rect>
+  </g>
+  <text x="80" y="34" font-family="&#39;Bricolage Grotesque&#39;, sans-serif" font-weight="800" font-size="27" letter-spacing="-0.5" fill="#1A1611">Anubhuti</text>
+  <text x="81" y="50" font-family="&#39;Space Mono&#39;, monospace" font-weight="700" font-size="9.5" letter-spacing="3" fill="#80735F">YOUTH · OPPORTUNITY</text>
+</svg>

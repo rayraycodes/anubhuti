@@ -1,0 +1,13 @@
+/* Anubhuti — Eyebrow / kicker: the recurring mono uppercase label. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+
+.light {
+  color: var(--anu-sun-200);
+}

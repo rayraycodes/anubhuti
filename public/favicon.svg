@@ -1,0 +1,16 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anubhuti">
+  <defs>
+    <clipPath id="anuRound"><rect width="64" height="64" rx="16"></rect></clipPath>
+  </defs>
+  <g clip-path="url(#anuRound)">
+    <rect width="64" height="64" fill="#C8243E"></rect>
+    
+    <circle cx="32" cy="30" r="11" fill="#E8941F"></circle>
+    
+    <path d="M2 56 L24 24 L40 56 Z" fill="#831428"></path>
+    
+    <path d="M30 56 L46 20 L62 56 Z" fill="#FCFAF6"></path>
+    <path d="M46 20 L52 33 L48 31 L46 35 L44 31 L40 33 Z" fill="#C8243E"></path>
+    <rect x="0" y="54" width="64" height="10" fill="#831428"></rect>
+  </g>
+</svg>

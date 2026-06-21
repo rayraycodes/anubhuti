@@ -1,0 +1,47 @@
+import { Button } from './Button';
+import { Icon } from './Icon';
+import type { NavTarget, OnNav } from '../types';
+import logoWordmark from '../assets/logo-wordmark.svg';
+import logoWordmarkLight from '../assets/logo-wordmark-light.svg';
+import styles from './Nav.module.css';
+
+const LINKS: [label: string, to: NavTarget][] = [
+  ['Opportunities', 'platform'],
+  ['Projects', 'platform'],
+  ['About', 'about'],
+  ['Circle', 'about'],
+];
+
+export interface NavProps {
+  onNav: OnNav;
+  /** Render over a dark surface (the Landing hero). */
+  dark?: boolean;
+}
+
+export function Nav({ onNav, dark }: NavProps) {
+  return (
+    <nav className={[styles.nav, dark && styles.onDark].filter(Boolean).join(' ')}>
+      <a className={styles.logo} onClick={() => onNav('home')}>
+        <img src={dark ? logoWordmarkLight : logoWordmark} alt="Anubhuti" />
+      </a>
+      <div className={styles.links}>
+        {LINKS.map(([label, to], i) => (
+          <a key={i} className={`${styles.link} ${styles.textLink}`} onClick={() => onNav(to)}>
+            {label}
+          </a>
+        ))}
+        <Button size="sm" variant={dark ? 'light' : 'secondary'} onClick={() => onNav('platform')}>
+          Sign in
+        </Button>
+        <Button
+          size="sm"
+          variant="primary"
+          onClick={() => onNav('platform')}
+          iconRight={<Icon name="arrow-right" size={16} />}
+        >
+          Post an opportunity
+        </Button>
+      </div>
+    </nav>
+  );
+}

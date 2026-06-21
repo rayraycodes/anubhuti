@@ -1,0 +1,62 @@
+/* Anubhuti — top navigation (shared by Landing hero and About header). */
+.nav {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 40px;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.logo {
+  cursor: pointer;
+  display: flex;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.link {
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-body);
+  opacity: 0.92;
+  transition: opacity var(--dur-fast);
+}
+
+.link:hover {
+  opacity: 1;
+}
+
+/* Over a dark surface (hero) the links turn white. */
+.onDark .link {
+  color: #fff;
+}
+
+/* The nav links beyond the brand collapse on narrow screens; the primary
+   actions remain reachable. Desktop layout (the design viewport) is unchanged. */
+@media (max-width: 880px) {
+  .nav {
+    padding: 16px 20px;
+  }
+  .textLink {
+    display: none;
+  }
+  .links {
+    gap: 14px;
+  }
+}

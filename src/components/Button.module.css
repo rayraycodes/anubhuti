@@ -1,0 +1,84 @@
+/* Anubhuti — Button (mirror of the DS Button primitive).
+   primary / secondary / sun / ghost / light · sm / md / lg */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    filter var(--dur-fast),
+    transform var(--dur-fast),
+    box-shadow var(--dur-fast);
+}
+
+.btn:hover {
+  filter: brightness(1.05);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px var(--anu-crimson-50);
+}
+
+.full {
+  display: flex;
+  width: 100%;
+}
+
+/* Sizes */
+.sm {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+.md {
+  height: 46px;
+  padding: 0 22px;
+  font-size: 15px;
+}
+.lg {
+  height: 56px;
+  padding: 0 30px;
+  font-size: 17px;
+}
+
+/* Variants */
+.primary {
+  background: var(--color-brand);
+  color: #fff;
+  border: 1.5px solid var(--color-brand);
+  box-shadow: var(--shadow-brand);
+}
+.secondary {
+  background: var(--surface-card);
+  color: var(--text-strong);
+  border: 1.5px solid var(--border-default);
+}
+.sun {
+  background: var(--color-accent);
+  color: var(--anu-stone-900);
+  border: 1.5px solid var(--color-accent);
+  box-shadow: var(--shadow-sun);
+}
+.ghost {
+  background: transparent;
+  color: var(--color-brand-strong);
+  border: 1.5px solid transparent;
+}
+.light {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1.5px solid var(--border-on-dark);
+}

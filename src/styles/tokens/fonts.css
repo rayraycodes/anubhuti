@@ -1,0 +1,7 @@
+/* Anubhuti — Webfonts
+   Loaded from Google Fonts CDN. See readme.md → "Font substitution" note.
+   - Bricolage Grotesque : display / headlines (expressive, modern, youthful)
+   - Mukta               : body + UI (Latin + Devanagari — Nepali script support)
+   - Space Mono          : eyebrows, metadata, deadlines (editorial mono accent)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Mukta:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');

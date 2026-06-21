@@ -1,0 +1,112 @@
+/* Anubhuti — Color tokens
+   Palette inspiration: Nepal flag crimson (sindoor), Himalayan sunrise gold,
+   deep maroon night sky, Lokta-paper creams, Himalayan blue, prayer-flag accents.
+*/
+:root {
+  /* ---- Base ramps ---------------------------------------------------- */
+
+  /* Crimson — the Anubhuti primary (sindoor / Nepal flag lineage) */
+  --anu-crimson-50:  #FCEAEC;
+  --anu-crimson-100: #F7C9CF;
+  --anu-crimson-200: #EE97A2;
+  --anu-crimson-300: #E5677A;
+  --anu-crimson-400: #DB3F58;
+  --anu-crimson-500: #C8243E;  /* core brand red */
+  --anu-crimson-600: #A81B33;
+  --anu-crimson-700: #831428;
+  --anu-crimson-800: #5C0E1C;
+  --anu-crimson-900: #3A0813;
+
+  /* Maroon / aubergine — deep Himalayan night sky (dark surfaces) */
+  --anu-maroon-900: #2A0A18;
+  --anu-maroon-800: #3A0F22;
+  --anu-maroon-700: #4E1830;
+
+  /* Sunrise — amber/gold over the peaks (accent + highlight) */
+  --anu-sun-50:  #FEF4E6;
+  --anu-sun-100: #FBE2BD;
+  --anu-sun-200: #F7C879;
+  --anu-sun-300: #F2AC3D;
+  --anu-sun-400: #E8941F;  /* core sunrise */
+  --anu-sun-500: #C9760F;
+  --anu-sun-600: #9C5A0C;
+
+  /* Himalayan blue — sky / glacier (secondary) */
+  --anu-blue-50:  #E8F1F6;
+  --anu-blue-100: #C2DCEA;
+  --anu-blue-200: #8FBCD6;
+  --anu-blue-300: #5897BD;
+  --anu-blue-400: #2E7DA8;  /* core blue */
+  --anu-blue-500: #1E6088;
+  --anu-blue-600: #154A6B;
+
+  /* Pine — valley green (success / prayer-flag green) */
+  --anu-pine-50:  #E7F3EC;
+  --anu-pine-100: #C2E0CD;
+  --anu-pine-300: #5DA97D;
+  --anu-pine-400: #318A57;  /* core green */
+  --anu-pine-600: #1E5E3A;
+
+  /* Stone — warm Lokta-paper neutrals */
+  --anu-stone-0:   #FFFFFF;
+  --anu-stone-25:  #FCFAF6;  /* lokta paper */
+  --anu-stone-50:  #F7F2EA;
+  --anu-stone-100: #EFE8DC;
+  --anu-stone-200: #E2D8C8;
+  --anu-stone-300: #CBBEA9;
+  --anu-stone-400: #A89B86;
+  --anu-stone-500: #80735F;
+  --anu-stone-600: #5E5343;
+  --anu-stone-700: #423A2E;
+  --anu-stone-800: #2B2620;
+  --anu-stone-900: #1A1611;  /* near-black ink */
+
+  /* Prayer-flag accent set (lung ta) — for category tags & illustration */
+  --anu-flag-blue:   #2E6FB0;
+  --anu-flag-white:  #F4F1EA;
+  --anu-flag-red:    #C8243E;
+  --anu-flag-green:  #318A57;
+  --anu-flag-yellow: #E8B23A;
+
+  /* ---- Semantic aliases ---------------------------------------------- */
+
+  /* Brand */
+  --color-brand:           var(--anu-crimson-500);
+  --color-brand-strong:    var(--anu-crimson-600);
+  --color-brand-soft:      var(--anu-crimson-50);
+  --color-accent:          var(--anu-sun-400);
+  --color-accent-soft:     var(--anu-sun-50);
+
+  /* Text */
+  --text-strong:   var(--anu-stone-900);
+  --text-body:     var(--anu-stone-700);
+  --text-muted:    var(--anu-stone-500);
+  --text-faint:    var(--anu-stone-400);
+  --text-on-brand: #FFFFFF;
+  --text-on-dark:  var(--anu-stone-50);
+  --text-link:     var(--anu-crimson-600);
+
+  /* Surfaces */
+  --surface-page:    var(--anu-stone-25);
+  --surface-card:    var(--anu-stone-0);
+  --surface-sunk:    var(--anu-stone-50);
+  --surface-raised:  #FFFFFF;
+  --surface-dark:    var(--anu-maroon-900);
+  --surface-dark-2:  var(--anu-maroon-800);
+  --surface-inverse: var(--anu-stone-900);
+
+  /* Borders / lines */
+  --border-subtle:  var(--anu-stone-200);
+  --border-default: var(--anu-stone-300);
+  --border-strong:  var(--anu-stone-400);
+  --border-on-dark: rgba(255,255,255,0.14);
+
+  /* States */
+  --color-success: var(--anu-pine-400);
+  --color-warning: var(--anu-sun-400);
+  --color-danger:  var(--anu-crimson-500);
+  --color-info:    var(--anu-blue-400);
+
+  /* Focus ring */
+  --focus-ring: var(--anu-crimson-400);
+}

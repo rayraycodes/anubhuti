@@ -1,0 +1,37 @@
+/* Anubhuti — Radii, shadows, borders, motion */
+:root {
+  /* Corner radii — gently rounded, never pill-everything */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-2xl:  32px;
+  --radius-pill: 999px;
+
+  /* Borders */
+  --border-width: 1px; /* @kind spacing */
+  --border-width-strong: 1.5px; /* @kind spacing */
+
+  /* Shadows — warm-tinted, soft (sunlight on stone, never harsh black) */
+  --shadow-xs: 0 1px 2px rgba(58, 8, 19, 0.06);
+  --shadow-sm: 0 2px 6px rgba(58, 8, 19, 0.07), 0 1px 2px rgba(58, 8, 19, 0.05);
+  --shadow-md: 0 8px 20px rgba(58, 8, 19, 0.09), 0 2px 6px rgba(58, 8, 19, 0.06);
+  --shadow-lg: 0 18px 44px rgba(58, 8, 19, 0.12), 0 4px 12px rgba(58, 8, 19, 0.07);
+  --shadow-xl: 0 32px 70px rgba(42, 10, 24, 0.20), 0 8px 20px rgba(42, 10, 24, 0.10);
+
+  /* Brand-tinted glow (used on primary CTAs / sunrise highlights) */
+  --shadow-brand: 0 10px 26px rgba(200, 36, 62, 0.28);
+  --shadow-sun:   0 10px 26px rgba(232, 148, 31, 0.30);
+
+  /* Inner shadow for sunk surfaces */
+  --shadow-inset: inset 0 1px 2px rgba(58, 8, 19, 0.06);
+
+  /* Motion — calm, confident easing; no bouncy overshoot */
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1); /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --ease-in:       cubic-bezier(0.4, 0.0, 1, 1); /* @kind other */
+  --dur-fast:   140ms; /* @kind other */
+  --dur-normal: 240ms; /* @kind other */
+  --dur-slow:   420ms; /* @kind other */
+}
