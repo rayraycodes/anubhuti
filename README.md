@@ -5,11 +5,20 @@ opportunity platform for Nepal. This is a production implementation of the
 `ui_kits/marketing/index.html` design from the **Anubhuti Design System** handoff
 (Claude Design), built as a real React app.
 
-It renders two pages with in-page navigation, exactly as the source prototype does:
+It renders four pages with in-page navigation; the active nav tab is highlighted
+(`aria-current="page"`):
 
-- **Landing** — hero + search, category row, deadline feed & live-projects marketplace,
-  the four-move model, stats & partners, and a CTA band.
-- **About** — story hero, vision band, the problem, the four-move approach, values, and a CTA.
+- **Landing** (`home`) — hero + search, category row, deadline feed & live-projects
+  marketplace, the four-move model, stats & partners, and a CTA band.
+- **Projects** (`projects`) — the project marketplace: a grid of sample projects with
+  status, skill tags, location and deadlines, plus a "post a project" CTA.
+- **About** (`about`) — story hero, vision band, the problem, the four-move approach,
+  values, and a CTA.
+- **Circle** (`circle`) — the partner network (OLE Nepal, Rotaract, Toastmasters, Leo
+  District, Code for Nepal and more), a stat strip, the diaspora-mentor band, and a CTA.
+
+The Landing + About pages mirror the design system's `Landing.jsx` / `About.jsx`; the
+Projects and Circle pages extend the kit using the same DS primitives and tokens.
 
 ## Stack
 
@@ -49,13 +58,13 @@ To ship an update: commit to `main`, then `npm run deploy`.
 ```
 src/
   main.tsx                # React entry
-  App.tsx                 # in-page nav: switches Landing ↔ About
-  types.ts                # NavTarget / OnNav
+  App.tsx                 # in-page router: Landing / Projects / About / Circle
+  types.ts                # NavTarget / Page / OnNav
   styles/
     global.css            # token @imports + base/reset + .container
     tokens/               # colors, typography, fonts, spacing, effects (verbatim from the DS)
   components/             # Button, Badge, Eyebrow, Nav, Footer, OppCard, Icon
-  pages/                  # Landing, About (+ .module.css each)
+  pages/                  # Landing, Projects, About, Circle (+ .module.css each)
   assets/                 # brand SVGs (hero, ridgeline, prayer flags, wordmarks)
 public/
   favicon.svg            # Anubhuti logo mark
@@ -74,9 +83,8 @@ and `About.jsx`.
 
 ## Scope notes
 
-- This build covers the **marketing kit only** (Landing + About), per the requested
-  `ui_kits/marketing/index.html`. The separate **platform / Browse** kit
-  (`ui_kits/platform/`) is **not** included.
+- This build covers the **marketing kit** (Landing, Projects, About, Circle). The
+  separate **platform / Browse** kit (`ui_kits/platform/`) is **not** included.
 - CTAs that the prototype routes to the platform kit ("Sign in", "Post an opportunity",
   "Explore", "Get started free", "Become a partner", footer links) are intentionally inert
   here. Wire them to the platform route in `src/App.tsx` (`onNav`, the `'platform'` branch)
