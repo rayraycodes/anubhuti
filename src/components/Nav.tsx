@@ -6,7 +6,7 @@ import logoWordmarkLight from '../assets/logo-wordmark-light.svg';
 import styles from './Nav.module.css';
 
 const LINKS: [label: string, to: NavTarget][] = [
-  ['Opportunities', 'home'],
+  ['Opportunities', 'browse'],
   ['Projects', 'projects'],
   ['About', 'about'],
   ['Circle', 'circle'],
@@ -18,9 +18,11 @@ export interface NavProps {
   active?: NavTarget;
   /** Render over a dark surface (the Landing hero). */
   dark?: boolean;
+  /** Open the "post an opportunity" dialog. */
+  onPost?: () => void;
 }
 
-export function Nav({ onNav, active, dark }: NavProps) {
+export function Nav({ onNav, active, dark, onPost }: NavProps) {
   return (
     <nav className={[styles.nav, dark && styles.onDark].filter(Boolean).join(' ')}>
       <a className={styles.logo} onClick={() => onNav('home')}>
@@ -39,13 +41,13 @@ export function Nav({ onNav, active, dark }: NavProps) {
             {label}
           </a>
         ))}
-        <Button size="sm" variant={dark ? 'light' : 'secondary'} onClick={() => onNav('platform')}>
-          Sign in
+        <Button size="sm" variant={dark ? 'light' : 'secondary'} onClick={() => onNav('browse')}>
+          Browse
         </Button>
         <Button
           size="sm"
           variant="primary"
-          onClick={() => onNav('platform')}
+          onClick={() => (onPost ? onPost() : onNav('browse'))}
           iconRight={<Icon name="arrow-right" size={16} />}
         >
           Post an opportunity

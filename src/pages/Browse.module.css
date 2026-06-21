@@ -1,0 +1,231 @@
+.intro {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px 24px 0;
+}
+.title {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--text-strong);
+}
+.titleAccent {
+  color: var(--color-brand);
+}
+.lede {
+  margin: 16px auto 0;
+  max-width: 560px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text-body);
+}
+
+/* Search bar */
+.searchBar {
+  margin: 28px auto 0;
+  max-width: 760px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.searchField {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 0 12px;
+  color: var(--text-muted);
+  min-width: 0;
+}
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--text-strong);
+}
+.searchInput::placeholder {
+  color: var(--text-muted);
+}
+.regionField {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 0 12px;
+  border-left: 1px solid var(--border-subtle);
+}
+.regionSelect {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--text-strong);
+  cursor: pointer;
+}
+.clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.clear:hover {
+  color: var(--text-strong);
+  background: var(--anu-stone-50);
+}
+
+/* Category chips */
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 18px auto 0;
+  max-width: 860px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-default);
+  background: var(--surface-card);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+.chip:hover {
+  border-color: var(--anu-stone-400);
+}
+.chipActive {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: #fff;
+  box-shadow: var(--shadow-brand);
+}
+
+/* Results */
+.results {
+  padding: 28px 0 24px;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.countNum {
+  color: var(--color-brand);
+  font-weight: 700;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.empty {
+  text-align: center;
+  padding: 56px 24px;
+  color: var(--text-muted);
+}
+.emptyIcon {
+  display: inline-flex;
+  color: var(--text-faint);
+  margin-bottom: 12px;
+}
+.emptyTitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--text-strong);
+}
+.emptySub {
+  margin-top: 6px;
+  font-size: 14.5px;
+}
+
+.ctaSection {
+  padding: 32px 0 80px;
+}
+.ctaBand {
+  border-radius: var(--radius-2xl);
+  background: var(--surface-dark);
+  padding: 44px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.ctaText {
+  max-width: 460px;
+}
+.ctaTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(22px, 2.6vw, 30px);
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.12;
+}
+.ctaLede {
+  margin: 8px 0 0;
+  font-size: 15px;
+  color: var(--anu-stone-200);
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .searchBar {
+    flex-wrap: wrap;
+  }
+  .regionField {
+    border-left: none;
+    width: 100%;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 6px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

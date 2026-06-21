@@ -4,40 +4,40 @@ import { Eyebrow } from '../components/Eyebrow';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { Icon } from '../components/Icon';
-import type { OnNav } from '../types';
+import type { AppActions } from '../app-actions';
 import prayerFlags from '../assets/prayer-flags.svg';
 import styles from './About.module.css';
 
 const PROBLEMS: [icon: string, title: string, desc: string][] = [
   [
     'layers',
-    'No multidisciplinary lens',
-    'Youth rarely get a holistic, interconnected view of real-world problems and of life itself.',
+    'Learning often stays in silos',
+    'A holistic, interconnected view of real-world problems — and of life — rarely fits into how we are taught.',
   ],
   [
     'eye-off',
-    'Hidden opportunities',
-    'Scholarships, fellowships, Rotaract, Leo, Toastmasters and volunteering exist — but stay invisible to those they would fit best.',
+    'Opportunities can be hard to find',
+    'Scholarships, fellowships, Rotaract, Leo, Toastmasters and volunteering are out there — they just rarely reach the people they would suit best.',
   ],
   [
     'network',
-    'Unaware of systems thinking',
-    'Economics, global politics, human history, behaviour and design thinking are seldom connected.',
+    'Ideas seldom connect',
+    'Economics, global politics, history, behaviour and design thinking are rarely linked, so the bigger picture is hard to see.',
   ],
   [
     'message-circle',
-    'Missing soft skills',
-    'Presentation, writing, formal & informal communication, empathy and reflection are taught in isolation, if at all.',
+    'Soft skills get less space',
+    'Presentation, writing, communication, empathy and reflection often get less room than they deserve.',
   ],
   [
     'compass',
-    'No sense of direction',
-    'What are lucrative careers? How do I explore what I actually want? Too few have a map.',
+    'Direction takes time to find',
+    'Which paths fit me? How do I explore what I actually want? A clear map can be hard to come by.',
   ],
   [
     'hand-helping',
-    'No hands-on practice',
-    'Theory rarely meets practice, so portfolios and real experience stay thin.',
+    'Few chances to practise',
+    'Theory does not always meet practice, so building a portfolio and real experience can take longer than it should.',
   ],
 ];
 
@@ -92,10 +92,10 @@ const VALUES: [icon: string, title: string][] = [
   ['heart', 'Empathetic & accessible engagement'],
 ];
 
-function AboutHero({ onNav }: { onNav: OnNav }) {
+function AboutHero({ actions }: { actions: AppActions }) {
   return (
     <header className={styles.aboutHero}>
-      <Nav onNav={onNav} active="about" />
+      <Nav onNav={actions.onNav} active="about" onPost={actions.openPost} />
       <div className={styles.aboutHeroInner}>
         <img className={styles.flags} src={prayerFlags} alt="" />
         <Eyebrow>Our story · हाम्रो कथा</Eyebrow>
@@ -113,10 +113,10 @@ function AboutHero({ onNav }: { onNav: OnNav }) {
   );
 }
 
-export function About({ onNav }: { onNav: OnNav }) {
+export function About({ actions }: { actions: AppActions }) {
   return (
     <div style={{ background: 'var(--surface-page)' }}>
-      <AboutHero onNav={onNav} />
+      <AboutHero actions={actions} />
 
       {/* Vision band */}
       <section className={styles.vision}>
@@ -135,8 +135,8 @@ export function About({ onNav }: { onNav: OnNav }) {
       <section className={styles.sectionProblems}>
         <div className="container container--narrow">
           <div className={styles.headBlock}>
-            <Eyebrow>The problem</Eyebrow>
-            <h2 className={styles.sectionTitle}>What young people in Nepal are up against</h2>
+            <Eyebrow>The gaps we want to close</Eyebrow>
+            <h2 className={styles.sectionTitle}>The gaps young people in Nepal navigate</h2>
           </div>
           <div className={styles.problemsGrid}>
             {PROBLEMS.map(([icon, title, desc]) => (
@@ -216,20 +216,20 @@ export function About({ onNav }: { onNav: OnNav }) {
               <Button
                 size="lg"
                 variant="sun"
-                onClick={() => onNav('platform')}
+                onClick={() => actions.onNav('circle')}
                 iconRight={<Icon name="arrow-right" size={18} />}
               >
                 Become a partner
               </Button>
-              <Button size="lg" variant="light" onClick={() => onNav('home')}>
-                Explore the platform
+              <Button size="lg" variant="light" onClick={() => actions.goBrowse()}>
+                Explore opportunities
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      <Footer onNav={onNav} />
+      <Footer onNav={actions.onNav} />
     </div>
   );
 }

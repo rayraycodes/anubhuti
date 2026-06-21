@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react';
+import { useMemo, useState } from 'react';
 import { Button } from '../components/Button';
 import { Eyebrow } from '../components/Eyebrow';
 import { Badge } from '../components/Badge';
@@ -6,59 +6,39 @@ import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { Icon } from '../components/Icon';
 import { OppCard, type OppCardProps } from '../components/OppCard';
-import type { OnNav } from '../types';
+import { OpportunityCard } from '../components/OpportunityCard';
+import {
+  CATEGORY_META,
+  REGIONS,
+  categoryCounts,
+  daysUntil,
+  sortByDeadline,
+  type Category,
+  type Opportunity,
+} from '../data/opportunities';
+import { PARTNERS } from '../data/partners';
+import type { AppActions } from '../app-actions';
+import type { CSSProperties } from 'react';
 import heroPeaks from '../assets/hero-peaks.svg';
 import ridgeline from '../assets/ridgeline.svg';
 import prayerFlags from '../assets/prayer-flags.svg';
 import styles from './Landing.module.css';
 
-const CATS: [icon: string, label: string, count: number][] = [
-  ['trophy', 'Competitions', 128],
-  ['mic', 'Conferences', 87],
-  ['globe', 'Exchange', 54],
-  ['users', 'Fellowships', 203],
-  ['briefcase', 'Internships', 176],
-  ['graduation-cap', 'Scholarships', 412],
-  ['presentation', 'Workshops', 96],
-  ['heart-handshake', 'Volunteering', 149],
+const ANY_REGION = 'Any region';
+
+// The eight headline categories shown as tiles (counts come from real data).
+const LANDING_CATS: Category[] = [
+  'Competitions',
+  'Conferences',
+  'Exchange',
+  'Fellowships',
+  'Internships',
+  'Scholarships',
+  'Workshops',
+  'Volunteering',
 ];
 
-const FEED: OppCardProps[] = [
-  {
-    category: 'Workshops',
-    title: 'AWS AI & ML Scholars Workshop 2026',
-    org: 'Amazon Web Services',
-    location: 'Online',
-    daysLeft: 3,
-    color: 'yellow',
-  },
-  {
-    category: 'Internships',
-    title: 'CBCF State Farm Communications Internship',
-    org: 'CBC Foundation',
-    location: 'United States',
-    daysLeft: 4,
-    funded: true,
-    color: 'blue',
-  },
-  {
-    category: 'Fellowships',
-    title: 'Royal Society Short Industry Fellowship',
-    org: 'The Royal Society',
-    location: 'United Kingdom',
-    daysLeft: 5,
-    color: 'crimson',
-  },
-  {
-    category: 'Awards',
-    title: 'The Young Climate Prize 2026',
-    org: 'The World Around',
-    location: 'Global',
-    daysLeft: 9,
-    color: 'green',
-  },
-];
-
+// Sample marketplace projects (teaser for the Projects page).
 const PROJECTS: OppCardProps[] = [
   {
     category: 'Project',
@@ -120,21 +100,21 @@ const MOVE_ACCENTS: Record<string, string> = {
   sun: 'var(--anu-sun-400)',
 };
 
-const STATS: [num: string, label: string][] = [
-  ['1,400+', 'Live opportunities'],
-  ['62', 'Partner organisations'],
-  ['8,900', 'Young people matched'],
-  ['37', 'Diaspora mentors'],
-];
+function Hero({ actions }: { actions: AppActions }) {
+  const [q, setQ] = useState('');
+  const [region, setRegion] = useState(ANY_REGION);
 
-const PARTNERS = ['OLE Nepal', 'Rotaract Himalaya', 'Toastmasters', 'Leo District', 'Code for Nepal'];
+  const explore = () =>
+    actions.goBrowse({
+      q: q.trim() || undefined,
+      region: region !== ANY_REGION ? region : undefined,
+    });
 
-function Hero({ onNav }: { onNav: OnNav }) {
   return (
     <header className={styles.hero}>
       <img className={styles.heroBg} src={heroPeaks} alt="" />
       <div className={styles.heroInner}>
-        <Nav onNav={onNav} active="home" dark />
+        <Nav onNav={actions.onNav} active="home" dark onPost={actions.openPost} />
         <div className={styles.heroContent}>
           <Eyebrow light>अनुभूति · Youth opportunity platform</Eyebrow>
           <h1 className={styles.heroTitle}>
@@ -144,23 +124,43 @@ function Hero({ onNav }: { onNav: OnNav }) {
             Scholarships, fellowships, mentorship and real projects — matched to where you are and
             where you want to go. Or post an opportunity, <em>for free</em>.
           </p>
-          <div className={styles.searchBar}>
+          <form
+            className={styles.searchBar}
+            onSubmit={(e) => {
+              e.preventDefault();
+              explore();
+            }}
+          >
             <div className={`${styles.searchField} ${styles.searchDivider}`}>
               <Icon name="search" size={18} />
-              <span>Any opportunity</span>
+              <input
+                className={styles.searchInput}
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Any opportunity"
+                aria-label="Search opportunities"
+              />
             </div>
             <div className={styles.searchField}>
               <Icon name="map-pin" size={18} />
-              <span>Any region</span>
+              <select
+                className={styles.regionSelect}
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
+                aria-label="Region"
+              >
+                <option value={ANY_REGION}>Any region</option>
+                {REGIONS.map((r) => (
+                  <option key={r} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </select>
             </div>
-            <Button
-              size="md"
-              onClick={() => onNav('platform')}
-              iconRight={<Icon name="arrow-right" size={16} />}
-            >
+            <Button size="md" type="submit" iconRight={<Icon name="arrow-right" size={16} />}>
               Explore
             </Button>
-          </div>
+          </form>
           <div className={styles.appBadges}>
             <span className={styles.appBadge}>
               <Icon name="apple" size={17} />
@@ -178,33 +178,64 @@ function Hero({ onNav }: { onNav: OnNav }) {
   );
 }
 
-export function Landing({ onNav }: { onNav: OnNav }) {
-  const [activeCat, setActiveCat] = useState('Scholarships');
+export function Landing({
+  actions,
+  opportunities,
+}: {
+  actions: AppActions;
+  opportunities: Opportunity[];
+}) {
+  const counts = useMemo(() => categoryCounts(opportunities), [opportunities]);
+
+  // Open opportunities (not closed), soonest deadline first.
+  const feed = useMemo(
+    () =>
+      sortByDeadline(
+        opportunities.filter((o) => {
+          const d = daysUntil(o.deadline);
+          return d === null || d >= 0;
+        }),
+      ).slice(0, 4),
+    [opportunities],
+  );
+
+  // Honest, derived headline numbers — no invented stats.
+  const liveCount = useMemo(
+    () => opportunities.filter((o) => (daysUntil(o.deadline) ?? 0) >= 0).length,
+    [opportunities],
+  );
+  const fundedCount = useMemo(
+    () => opportunities.filter((o) => o.funded && (daysUntil(o.deadline) ?? 0) >= 0).length,
+    [opportunities],
+  );
+  const stats: [string, string][] = [
+    [String(liveCount), 'Open opportunities'],
+    [String(fundedCount), 'Funded options'],
+    [String(PARTNERS.length), 'Partner networks'],
+    [String(LANDING_CATS.length), 'Categories'],
+  ];
 
   return (
     <div style={{ background: 'var(--surface-page)' }}>
-      <Hero onNav={onNav} />
+      <Hero actions={actions} />
 
       {/* Category row */}
       <section className={styles.sectionCats}>
         <div className="container">
           <div className={styles.catRow}>
-            {CATS.map(([icon, label, count]) => {
-              const on = activeCat === label;
-              return (
-                <button
-                  key={label}
-                  onClick={() => setActiveCat(label)}
-                  className={`${styles.catBtn} ${on ? styles.catBtnActive : ''}`}
-                >
-                  <span className={styles.catIcon}>
-                    <Icon name={icon} size={22} />
-                  </span>
-                  <span className={styles.catLabel}>{label}</span>
-                  <span className={styles.catCount}>{count}</span>
-                </button>
-              );
-            })}
+            {LANDING_CATS.map((label) => (
+              <button
+                key={label}
+                onClick={() => actions.goBrowse({ category: label })}
+                className={styles.catBtn}
+              >
+                <span className={styles.catIcon}>
+                  <Icon name={CATEGORY_META[label].icon} size={22} />
+                </span>
+                <span className={styles.catLabel}>{label}</span>
+                <span className={styles.catCount}>{counts[label] ?? 0}</span>
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -215,24 +246,36 @@ export function Landing({ onNav }: { onNav: OnNav }) {
           <div className={styles.feedGrid}>
             <div>
               <div className={styles.colHead}>
-                <Icon name="hourglass" size={18} />
-                <h2 className={styles.colTitle}>Deadline approaching</h2>
+                <Icon name="sparkles" size={18} />
+                <h2 className={styles.colTitle}>Open opportunities</h2>
+                <a
+                  onClick={() => actions.goBrowse()}
+                  style={{
+                    marginLeft: 'auto',
+                    cursor: 'pointer',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: 'var(--color-brand-strong)',
+                  }}
+                >
+                  See all →
+                </a>
               </div>
               <div className={styles.cardList}>
-                {FEED.map((f, i) => (
-                  <OppCard key={i} {...f} onClick={() => onNav('platform')} />
+                {feed.map((o) => (
+                  <OpportunityCard key={o.id} opportunity={o} onOpen={actions.openDetail} />
                 ))}
               </div>
             </div>
             <div>
               <div className={styles.colHead}>
-                <Icon name="sparkles" size={18} />
+                <Icon name="hammer" size={18} />
                 <h2 className={styles.colTitle}>Live projects</h2>
                 <Badge tone="success">Marketplace</Badge>
               </div>
               <div className={styles.cardList}>
                 {PROJECTS.map((f, i) => (
-                  <OppCard key={i} {...f} onClick={() => onNav('platform')} />
+                  <OppCard key={i} {...f} onClick={() => actions.onNav('projects')} />
                 ))}
               </div>
             </div>
@@ -270,11 +313,11 @@ export function Landing({ onNav }: { onNav: OnNav }) {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats + partners */}
       <section className={styles.sectionStats}>
         <div className="container">
           <div className={styles.statsGrid}>
-            {STATS.map(([num, label]) => (
+            {stats.map(([num, label]) => (
               <div key={label} className={styles.stat}>
                 <div className={styles.statNum}>{num}</div>
                 <div className={styles.statLabel}>{label}</div>
@@ -284,8 +327,8 @@ export function Landing({ onNav }: { onNav: OnNav }) {
           <div className={styles.partners}>
             <span className={styles.partnersLabel}>Partners</span>
             {PARTNERS.map((p) => (
-              <span key={p} className={styles.partnerName}>
-                {p}
+              <span key={p.name} className={styles.partnerName}>
+                {p.name}
               </span>
             ))}
           </div>
@@ -305,12 +348,12 @@ export function Landing({ onNav }: { onNav: OnNav }) {
               <Button
                 size="lg"
                 variant="sun"
-                onClick={() => onNav('platform')}
+                onClick={() => actions.goBrowse()}
                 iconRight={<Icon name="arrow-right" size={18} />}
               >
-                Get started free
+                Explore opportunities
               </Button>
-              <Button size="lg" variant="light" onClick={() => onNav('about')}>
+              <Button size="lg" variant="light" onClick={() => actions.onNav('about')}>
                 Read our vision
               </Button>
             </div>
@@ -318,7 +361,7 @@ export function Landing({ onNav }: { onNav: OnNav }) {
         </div>
       </section>
 
-      <Footer onNav={onNav} />
+      <Footer onNav={actions.onNav} />
     </div>
   );
 }

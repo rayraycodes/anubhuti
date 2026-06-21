@@ -5,7 +5,7 @@ import { Eyebrow } from '../components/Eyebrow';
 import { Badge } from '../components/Badge';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
-import type { OnNav } from '../types';
+import type { AppActions } from '../app-actions';
 import prayerFlags from '../assets/prayer-flags.svg';
 import styles from './Projects.module.css';
 
@@ -173,7 +173,7 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
             </span>
           </div>
           <span className={styles.view}>
-            View
+            Get involved
             <Icon name="arrow-right" size={14} />
           </span>
         </div>
@@ -182,11 +182,11 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void
   );
 }
 
-export function Projects({ onNav }: { onNav: OnNav }) {
+export function Projects({ actions }: { actions: AppActions }) {
   return (
     <div style={{ background: 'var(--surface-page)' }}>
       <header style={{ background: 'var(--surface-page)' }}>
-        <Nav onNav={onNav} active="projects" />
+        <Nav onNav={actions.onNav} active="projects" onPost={actions.openPost} />
         <div className="container container--narrow">
           <div className={styles.intro}>
             <Eyebrow>Project marketplace · परियोजना</Eyebrow>
@@ -213,7 +213,7 @@ export function Projects({ onNav }: { onNav: OnNav }) {
             <Button
               size="sm"
               variant="secondary"
-              onClick={() => onNav('circle')}
+              onClick={actions.openPost}
               iconLeft={<Icon name="hammer" size={15} />}
             >
               Post a project
@@ -221,7 +221,7 @@ export function Projects({ onNav }: { onNav: OnNav }) {
           </div>
           <div className={styles.grid} style={{ marginTop: 24 }}>
             {PROJECTS.map((p, i) => (
-              <ProjectCard key={i} project={p} onOpen={() => onNav('platform')} />
+              <ProjectCard key={i} project={p} onOpen={actions.openPost} />
             ))}
           </div>
         </div>
@@ -239,12 +239,12 @@ export function Projects({ onNav }: { onNav: OnNav }) {
               <Button
                 size="lg"
                 variant="sun"
-                onClick={() => onNav('circle')}
+                onClick={actions.openPost}
                 iconRight={<Icon name="arrow-right" size={18} />}
               >
                 Post a project
               </Button>
-              <Button size="lg" variant="light" onClick={() => onNav('home')}>
+              <Button size="lg" variant="light" onClick={() => actions.goBrowse()}>
                 Browse opportunities
               </Button>
             </div>
@@ -252,7 +252,7 @@ export function Projects({ onNav }: { onNav: OnNav }) {
         </div>
       </section>
 
-      <Footer onNav={onNav} />
+      <Footer onNav={actions.onNav} />
     </div>
   );
 }
