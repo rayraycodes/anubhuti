@@ -22,11 +22,27 @@ It renders two pages with in-page navigation, exactly as the source prototype do
 
 ```bash
 npm install
-npm run dev        # start the dev server (http://localhost:5173)
+npm run dev        # start the dev server (http://localhost:5173/anubhuti/)
 npm run build      # type-check (tsc -b) + production build to dist/
 npm run preview    # preview the production build
 npm run typecheck  # type-check only
+npm run deploy     # build + publish dist/ to the gh-pages branch
 ```
+
+## Deployment
+
+Live at **https://reganmaharjan.com.np/anubhuti/** via GitHub Pages.
+
+- Hosted as a **project site** of `rayraycodes/anubhuti`, served under the custom
+  domain configured on the user's `rayraycodes.github.io` site — so it lives at the
+  `/anubhuti/` subpath and `vite.config.ts` sets `base: '/anubhuti/'` accordingly.
+- `main` holds the source; **`npm run deploy`** builds and pushes `dist/` to the
+  **`gh-pages`** branch (the Pages source). A `public/.nojekyll` file ships in the
+  build so Pages serves Vite's output verbatim.
+- The custom domain is inherited from the user site, so this repo intentionally has
+  **no `CNAME` file**.
+
+To ship an update: commit to `main`, then `npm run deploy`.
 
 ## Project structure
 
