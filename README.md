@@ -36,6 +36,9 @@ Opportunities, Projects and Circle pages extend the kit using the same DS primit
   *Posted* badge) and persists it to `localStorage` — no backend required.
 - **Honest numbers.** Headline stats and category counts are derived from the data, not
   hard-coded vanity figures.
+- **Projects.** `src/data/projects.ts` holds the sample marketplace projects; clicking one
+  opens a detail dialog. **Submitting a project** (and "Express interest") opens a Google
+  Form — set the link in `PROJECT_FORM_URL` (currently a placeholder to replace).
 
 ## Stack
 
