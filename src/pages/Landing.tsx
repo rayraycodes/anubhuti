@@ -5,8 +5,9 @@ import { Badge } from '../components/Badge';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { Icon } from '../components/Icon';
-import { OppCard, type OppCardProps } from '../components/OppCard';
+import { OppCard } from '../components/OppCard';
 import { OpportunityCard } from '../components/OpportunityCard';
+import { PROJECTS } from '../data/projects';
 import {
   CATEGORY_META,
   REGIONS,
@@ -36,34 +37,6 @@ const LANDING_CATS: Category[] = [
   'Scholarships',
   'Workshops',
   'Volunteering',
-];
-
-// Sample marketplace projects (teaser for the Projects page).
-const PROJECTS: OppCardProps[] = [
-  {
-    category: 'Project',
-    title: 'Audio transcription for E-Pustakalaya',
-    org: 'OLE Nepal × Rotaract Patan',
-    location: 'Patan',
-    daysLeft: 12,
-    color: 'green',
-  },
-  {
-    category: 'Project',
-    title: 'Local market-trends research report',
-    org: 'Sustainable Fish Co-op',
-    location: 'Pokhara',
-    daysLeft: 18,
-    color: 'blue',
-  },
-  {
-    category: 'Project',
-    title: 'Brand identity for a youth-led NGO',
-    org: 'Himalayan Climate Initiative',
-    location: 'Kathmandu',
-    daysLeft: 7,
-    color: 'sun',
-  },
 ];
 
 const MOVES: [icon: string, title: string, desc: string, color: string][] = [
@@ -274,8 +247,17 @@ export function Landing({
                 <Badge tone="success">Marketplace</Badge>
               </div>
               <div className={styles.cardList}>
-                {PROJECTS.map((f, i) => (
-                  <OppCard key={i} {...f} onClick={() => actions.onNav('projects')} />
+                {PROJECTS.slice(0, 3).map((p) => (
+                  <OppCard
+                    key={p.id}
+                    category="Project"
+                    title={p.title}
+                    org={p.org}
+                    location={p.location}
+                    daysLeft={p.daysLeft}
+                    color={p.color}
+                    onClick={() => actions.onNav('projects')}
+                  />
                 ))}
               </div>
             </div>
