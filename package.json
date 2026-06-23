@@ -9,6 +9,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "data:check": "node scripts/check-opportunities.mjs",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist -t"
   },
@@ -23,6 +26,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "gh-pages": "^6.3.0",
     "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "vite": "^5.4.11",
+    "vitest": "^4.1.9"
   }
 }

@@ -1,0 +1,99 @@
+name: Data upkeep
+
+# Keeps the opportunities data honest.
+#  • health-check: weekly link + deadline check → opens/updates a tracking issue.
+#  • ai-refresh:  OPT-IN. Runs only if the ANTHROPIC_API_KEY secret is set; asks
+#                 Claude (with web search) to re-verify the list and opens a PR
+#                 for review. Never auto-merges, never touches the live site.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+
+      - name: Check links & deadlines
+        id: check
+        run: npm run data:check
+
+      - name: Open or update tracking issue
+        if: steps.check.outputs.has_findings == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create data-health --color FBBF24 \
+            --description "Opportunity data freshness" --force >/dev/null 2>&1 || true
+          num=$(gh issue list --state open --label data-health --json number --jq '.[0].number // empty')
+          if [ -n "$num" ]; then
+            gh issue edit "$num" --body-file data-health-report.md
+            gh issue comment "$num" --body "Re-checked on $(date -u +%Y-%m-%d): ${{ steps.check.outputs.summary }}."
+          else
+            gh issue create --title "Opportunity data needs a refresh" \
+              --label data-health --body-file data-health-report.md
+          fi
+
+  ai-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gate on ANTHROPIC_API_KEY
+        id: gate
+        env:
+          KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$KEY" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "ANTHROPIC_API_KEY not set — skipping AI refresh. Add the secret to enable it."
+          fi
+
+      - if: steps.gate.outputs.enabled == 'true'
+        uses: actions/checkout@v4
+
+      - if: steps.gate.outputs.enabled == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Anthropic SDK
+        if: steps.gate.outputs.enabled == 'true'
+        run: npm install --no-save @anthropic-ai/sdk
+
+      - name: Refresh opportunities with Claude
+        if: steps.gate.outputs.enabled == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/refresh-opportunities.mjs
+
+      - name: Open a review PR
+        if: steps.gate.outputs.enabled == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: bot/opportunities-refresh
+          base: main
+          add-paths: src/data/opportunities.json
+          commit-message: 'data: refresh opportunities (AI-assisted)'
+          title: 'Refresh opportunities (AI-assisted)'
+          body: |
+            Automated re-verification of `src/data/opportunities.json` by Claude (with web search).
+
+            **Review before merging** — confirm the links resolve and the deadlines look right.
+            This PR never auto-merges.
+          labels: data-health
+          delete-branch: true
