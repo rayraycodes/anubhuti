@@ -17,8 +17,8 @@
     "category": "Fellowships",
     "region": "Nepal",
     "funded": true,
-    "deadline": "2026-02-27",
-    "url": "https://www.daayitwa.org/focus-areas/growth-entrepreneurship-and-employment-promotion-program-geep-fellowship-2026",
+    "deadline": null,
+    "url": "https://www.daayitwa.org/geep",
     "summary": "Three-month stipended fellowship placing young professionals in municipalities to promote jobs and entrepreneurship."
   },
   {
@@ -62,7 +62,7 @@
     "region": "Global",
     "funded": true,
     "deadline": null,
-    "url": "https://usefnepal.org/fulbright/global-undergrad-exchange-fellowship-ugrad/program-information-and-application-link/",
+    "url": "https://usefnepal.org/",
     "summary": "Fully funded one-semester exchange for Nepali undergraduates to study at U.S. institutions."
   },
   {
@@ -72,8 +72,8 @@
     "category": "Scholarships",
     "region": "Global",
     "funded": true,
-    "deadline": "2026-05-31",
-    "url": "https://usefnepal.org/fulbright/ffsp/",
+    "deadline": null,
+    "url": "https://usefnepal.org/",
     "summary": "Fully funded scholarship for Nepali citizens to pursue a master's degree in the United States."
   },
   {
@@ -127,8 +127,8 @@
     "category": "Competitions",
     "region": "Lalitpur",
     "funded": false,
-    "deadline": "2026-04-25",
-    "url": "https://glocalnepal.com/nepal-startup-innovation-hackathon-2026/",
+    "deadline": null,
+    "url": "https://glocalnepal.com/",
     "summary": "Free three-day innovation challenge for youth to solve national problems through technology."
   },
   {
@@ -194,7 +194,7 @@
     "region": "Kathmandu",
     "funded": false,
     "deadline": null,
-    "url": "https://www.jcycnepal.org.np/get-involved/internship/",
+    "url": "https://jcycnepal.wordpress.com/join-now/interns/",
     "summary": "Three-to-six-month internships supporting Nepali children and youth-focused community projects."
   },
   {
