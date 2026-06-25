@@ -10,9 +10,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 0;
 }
 .heroInner {
   position: relative;
+  /* Sit above the decorative ridgeline so it never covers the search bar. */
+  z-index: 2;
 }
 .heroContent {
   max-width: 880px;
@@ -123,6 +126,7 @@
   width: 100%;
   opacity: 0.9;
   pointer-events: none;
+  z-index: 1;
 }
 
 /* ============================================================ Section spacing */
