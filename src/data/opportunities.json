@@ -61,8 +61,8 @@
     "category": "Exchange",
     "region": "Global",
     "funded": true,
-    "deadline": null,
-    "url": "https://usefnepal.org/",
+    "deadline": "2026-04-27",
+    "url": "https://usefnepal.org/global-ugrad/",
     "summary": "Fully funded one-semester exchange for Nepali undergraduates to study at U.S. institutions."
   },
   {
@@ -72,8 +72,8 @@
     "category": "Scholarships",
     "region": "Global",
     "funded": true,
-    "deadline": null,
-    "url": "https://usefnepal.org/",
+    "deadline": "2026-05-15",
+    "url": "https://usefnepal.org/fulbright-foreign-student-program/",
     "summary": "Fully funded scholarship for Nepali citizens to pursue a master's degree in the United States."
   },
   {
@@ -83,7 +83,7 @@
     "category": "Scholarships",
     "region": "Global",
     "funded": true,
-    "deadline": null,
+    "deadline": "2026-11-07",
     "url": "https://www.chevening.org/scholarship/nepal/",
     "summary": "Fully funded UK master's scholarship for outstanding Nepali professionals with leadership potential."
   },
@@ -117,7 +117,7 @@
     "region": "Lalitpur",
     "funded": false,
     "deadline": null,
-    "url": "https://np.linkedin.com/company/hult-prize-nepal",
+    "url": "https://www.hultprize.org/where-we-are/asia/nepal/",
     "summary": "National student social-entrepreneurship competition feeding into Hult Prize global finals."
   },
   {
@@ -205,7 +205,7 @@
     "region": "Kathmandu",
     "funded": true,
     "deadline": null,
-    "url": "https://www.undp.org/careers/people-programmes",
+    "url": "https://www.undp.org/nepal/jobs-and-internships",
     "summary": "Stipended internships for Nepali students and graduates in development programmes in Kathmandu."
   },
   {
@@ -216,7 +216,7 @@
     "region": "Nepal",
     "funded": true,
     "deadline": null,
-    "url": "https://www2.fundsforngos.org/environment/apply-for-all-in-solutions-fellowship-program-nepal/",
+    "url": "https://www.allinsolutions.org/fellowship",
     "summary": "Six-month fellowship for emerging leaders working on democracy, climate justice and social equity."
   },
   {
@@ -240,5 +240,38 @@
     "deadline": null,
     "url": "https://www.eastwestcenter.org/projects/young-south-asian-leaders-initiative-ysali",
     "summary": "Regional leadership workshops on innovation, civic engagement and entrepreneurship for Nepali youth."
+  },
+  {
+    "id": "rotary-peace-fellowship",
+    "title": "Rotary Peace Fellowship",
+    "org": "Rotary International",
+    "category": "Fellowships",
+    "region": "Global",
+    "funded": true,
+    "deadline": "2026-05-15",
+    "url": "https://www.rotary.org/our-programs/peace-fellowships",
+    "summary": "Fully funded master's or certificate programs in peace and development studies at partner universities."
+  },
+  {
+    "id": "aiesec-global-volunteer",
+    "title": "AIESEC Global Volunteer",
+    "org": "AIESEC in Nepal",
+    "category": "Volunteering",
+    "region": "Global",
+    "funded": false,
+    "deadline": null,
+    "url": "https://aiesec.org/global-volunteer",
+    "summary": "Short-term international volunteer projects focused on social impact and cultural understanding."
+  },
+  {
+    "id": "yale-world-fellows",
+    "title": "Yale World Fellows Program",
+    "org": "Yale University",
+    "category": "Fellowships",
+    "region": "Global",
+    "funded": true,
+    "deadline": "2026-12-06",
+    "url": "https://worldfellows.yale.edu/apply/",
+    "summary": "Four-month fully funded leadership program at Yale University for rising global leaders."
   }
 ]
