@@ -89,7 +89,7 @@ function Hero({ actions }: { actions: AppActions }) {
       <div className={styles.heroInner}>
         <Nav onNav={actions.onNav} active="home" dark onPost={actions.openPost} />
         <div className={styles.heroContent}>
-          <Eyebrow light>अनुभूति · Youth opportunity platform</Eyebrow>
+          <Eyebrow light>अनुभूति · Nepal's youth opportunity hub</Eyebrow>
           <h1 className={styles.heroTitle}>
             Explore what's <span className={styles.heroAccent}>possible</span>.
           </h1>
@@ -260,6 +260,55 @@ export function Landing({
                   />
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The hub — two sides */}
+      <section className={styles.sectionHub}>
+        <div className="container">
+          <div className={styles.hubHead}>
+            <Eyebrow>A hub for youth</Eyebrow>
+            <h2 className={styles.hubTitle}>Where young people and organisations meet.</h2>
+            <p className={styles.hubLede}>
+              Aspirants and volunteers find opportunities and real work to grow into. Organisations
+              find motivated young people ready to contribute. Anubhuti is the bridge between them.
+            </p>
+          </div>
+          <div className={styles.hubGrid}>
+            <div className={styles.hubCard}>
+              <span className={`${styles.hubIcon} ${styles.hubIconYouth}`}>
+                <Icon name="users" size={24} />
+              </span>
+              <h3 className={styles.hubCardTitle}>For young people</h3>
+              <p className={styles.hubCardText}>
+                Find scholarships, fellowships, volunteering and real projects matched to your
+                skills — and turn them into experience.
+              </p>
+              <button className={styles.hubLink} onClick={() => actions.goBrowse()}>
+                Explore opportunities
+                <Icon name="arrow-right" size={15} />
+              </button>
+            </div>
+
+            <div className={styles.hubNode} aria-hidden="true">
+              <Icon name="git-merge" size={22} />
+            </div>
+
+            <div className={styles.hubCard}>
+              <span className={`${styles.hubIcon} ${styles.hubIconOrg}`}>
+                <Icon name="briefcase" size={24} />
+              </span>
+              <h3 className={styles.hubCardTitle}>For organisations</h3>
+              <p className={styles.hubCardText}>
+                Post opportunities and real projects, and reach a community of young Nepalis ready to
+                step up and help.
+              </p>
+              <button className={styles.hubLink} onClick={actions.openPost}>
+                Post an opportunity
+                <Icon name="arrow-right" size={15} />
+              </button>
             </div>
           </div>
         </div>

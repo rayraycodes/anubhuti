@@ -124,8 +124,8 @@ export function About({ actions }: { actions: AppActions }) {
           <div className={styles.visionInner}>
             <Eyebrow light>Vision</Eyebrow>
             <p className={styles.visionText}>
-              A Nepal where every young person can find the opportunity that fits them — and turn
-              what they learn into something real.
+              A Nepal where every young person can find the opportunity that fits them — and every
+              organisation can find the young people ready to help.
             </p>
           </div>
         </div>

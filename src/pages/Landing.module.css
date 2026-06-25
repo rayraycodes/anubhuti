@@ -228,6 +228,117 @@
   gap: 12px;
 }
 
+/* ============================================================ The hub */
+.sectionHub {
+  padding: 72px 0;
+}
+.hubHead {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto;
+}
+.hubTitle {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 3.6vw, 42px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+.hubLede {
+  margin: 16px auto 0;
+  max-width: 580px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+.hubGrid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-top: 44px;
+}
+.hubCard {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+}
+.hubIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+}
+.hubIconYouth {
+  background: var(--anu-crimson-50);
+  color: var(--color-brand);
+}
+.hubIconOrg {
+  background: var(--anu-blue-50);
+  color: var(--anu-blue-500);
+}
+.hubCardTitle {
+  margin: 18px 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  color: var(--text-strong);
+}
+.hubCardText {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.hubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-brand-strong);
+  cursor: pointer;
+  transition: gap var(--dur-fast);
+}
+.hubLink:hover {
+  gap: 10px;
+}
+.hubNode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  color: #fff;
+  box-shadow: var(--shadow-brand);
+}
+
+@media (max-width: 760px) {
+  .hubGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .hubNode {
+    transform: rotate(90deg);
+  }
+}
+
 /* ============================================================ The model */
 .modelHead {
   text-align: center;

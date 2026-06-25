@@ -50,8 +50,8 @@ export function Footer({ onNav }: FooterProps) {
         <div>
           <img className={styles.brandLogo} src={logoWordmarkLight} alt="Anubhuti" />
           <p className={styles.blurb}>
-            Bridging theory and real-world impact for the youth of Nepal — one opportunity at a
-            time.
+            The hub connecting young Nepalis with opportunities, real projects, and the
+            organisations that need them.
           </p>
           <div className={styles.social}>
             {SOCIALS.map((s) => (
