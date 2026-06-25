@@ -2,9 +2,10 @@ name: Data upkeep
 
 # Keeps the opportunities data honest.
 #  • health-check: weekly link + deadline check → opens/updates a tracking issue.
-#  • ai-refresh:  OPT-IN. Runs only if the ANTHROPIC_API_KEY secret is set; asks
-#                 Claude (with web search) to re-verify the list and opens a PR
-#                 for review. Never auto-merges, never touches the live site.
+#  • ai-refresh:  OPT-IN, FREE. Runs only if the GEMINI_API_KEY secret is set;
+#                 asks Google Gemini (free tier, with web search) to re-verify the
+#                 list and opens a PR for review. Never auto-merges, never touches
+#                 the live site. Free key: https://aistudio.google.com/apikey
 
 on:
   schedule:
@@ -50,16 +51,16 @@ jobs:
   ai-refresh:
     runs-on: ubuntu-latest
     steps:
-      - name: Gate on ANTHROPIC_API_KEY
+      - name: Gate on GEMINI_API_KEY
         id: gate
         env:
-          KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           if [ -n "$KEY" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "ANTHROPIC_API_KEY not set — skipping AI refresh. Add the secret to enable it."
+            echo "GEMINI_API_KEY not set — skipping AI refresh. Add the free secret to enable it."
           fi
 
       - if: steps.gate.outputs.enabled == 'true'
@@ -70,14 +71,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Anthropic SDK
-        if: steps.gate.outputs.enabled == 'true'
-        run: npm install --no-save @anthropic-ai/sdk
-
-      - name: Refresh opportunities with Claude
+      - name: Refresh opportunities with Gemini (free tier)
         if: steps.gate.outputs.enabled == 'true'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/refresh-opportunities.mjs
 
       - name: Open a review PR
@@ -91,7 +88,7 @@ jobs:
           commit-message: 'data: refresh opportunities (AI-assisted)'
           title: 'Refresh opportunities (AI-assisted)'
           body: |
-            Automated re-verification of `src/data/opportunities.json` by Claude (with web search).
+            Automated re-verification of `src/data/opportunities.json` by Google Gemini (free tier, with web search).
 
             **Review before merging** — confirm the links resolve and the deadlines look right.
             This PR never auto-merges.

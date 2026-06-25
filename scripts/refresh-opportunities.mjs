@@ -1,18 +1,25 @@
 #!/usr/bin/env node
 /**
- * AI-assisted opportunity refresh (opt-in).
+ * AI-assisted opportunity refresh (opt-in, FREE).
  *
- * Uses the Anthropic API (Claude + web search) to re-verify the current
- * opportunities and propose an updated list, then writes opportunities.json.
- * The GitHub workflow runs this only when ANTHROPIC_API_KEY is set, and opens a
- * PR for human review — nothing reaches the live site without a merge.
+ * Uses Google's Gemini API (free tier) with Google Search grounding to re-verify
+ * the current opportunities and propose an updated list, then writes
+ * opportunities.json. The GitHub workflow runs this only when GEMINI_API_KEY is
+ * set, and opens a PR for human review — nothing reaches the live site without a
+ * merge.
  *
- * Requires: @anthropic-ai/sdk (the workflow installs it), ANTHROPIC_API_KEY.
+ * Get a free key at https://aistudio.google.com/apikey (no billing required).
+ * Uses the REST API + built-in fetch — no npm dependency to install.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
-import Anthropic from '@anthropic-ai/sdk';
 
-const MODEL = 'claude-opus-4-8'; // swap to 'claude-sonnet-4-6' to cut cost if you prefer
+const MODEL = 'gemini-2.5-flash'; // free tier; swap to 'gemini-2.0-flash' if you prefer
+const KEY = process.env.GEMINI_API_KEY;
+if (!KEY) {
+  console.error('GEMINI_API_KEY not set — nothing to do.');
+  process.exit(1);
+}
+
 const CATEGORIES = [
   'Scholarships',
   'Fellowships',
@@ -31,7 +38,7 @@ const DATA_URL = new URL('../src/data/opportunities.json', import.meta.url);
 const current = JSON.parse(readFileSync(DATA_URL, 'utf8'));
 const today = new Date().toISOString().slice(0, 10);
 
-const SYSTEM = `You curate a list of REAL, verifiable opportunities for Nepali youth for the Anubhuti platform. Use web search to verify links and deadlines. Never invent programs, organisations, URLs, or specific deadlines. Today is ${today}.`;
+const SYSTEM = `You curate a list of REAL, verifiable opportunities for Nepali youth for the Anubhuti platform. Use Google Search to verify links and deadlines. Never invent programs, organisations, URLs, or specific deadlines. Today is ${today}.`;
 
 const USER = `Here is the current opportunities list (JSON):
 
@@ -54,7 +61,7 @@ Each item must have EXACTLY these fields:
 - "url": real official link (https)
 - "summary": one concise sentence (max ~18 words)
 
-Return ONLY the final JSON array — start your reply with [ and end with ]. No prose, no markdown fences.`;
+Return ONLY the final JSON array — start with [ and end with ]. No prose, no markdown fences.`;
 
 function extractJsonArray(text) {
   const start = text.indexOf('[');
@@ -92,29 +99,31 @@ function validate(items) {
 }
 
 async function run() {
-  const client = new Anthropic();
-  let messages = [{ role: 'user', content: USER }];
-  let response;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`;
+  const body = {
+    systemInstruction: { parts: [{ text: SYSTEM }] },
+    contents: [{ role: 'user', parts: [{ text: USER }] }],
+    tools: [{ google_search: {} }], // web-search grounding
+    generationConfig: { temperature: 0.2, maxOutputTokens: 8192 },
+  };
 
-  // Server-side web search runs a loop; resume on pause_turn.
-  for (let i = 0; i < 6; i++) {
-    response = await client.messages.create({
-      model: MODEL,
-      max_tokens: 16000,
-      thinking: { type: 'adaptive' },
-      system: SYSTEM,
-      tools: [{ type: 'web_search_20260209', name: 'web_search' }],
-      messages,
-    });
-    if (response.stop_reason === 'refusal') throw new Error('Model refused the request');
-    if (response.stop_reason !== 'pause_turn') break;
-    messages = [...messages, { role: 'assistant', content: response.content }];
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    throw new Error(`Gemini API ${res.status}: ${(await res.text()).slice(0, 300)}`);
   }
+  const data = await res.json();
+  const cand = data.candidates?.[0];
+  if (!cand) throw new Error(`No candidate returned (${JSON.stringify(data).slice(0, 300)})`);
 
-  const text = response.content
-    .filter((b) => b.type === 'text')
-    .map((b) => b.text)
+  const text = (cand.content?.parts ?? [])
+    .map((p) => p.text)
+    .filter(Boolean)
     .join('\n');
+  if (!text) throw new Error(`Empty model output (finishReason: ${cand.finishReason})`);
 
   const refreshed = validate(extractJsonArray(text));
   if (refreshed.length < 8) {

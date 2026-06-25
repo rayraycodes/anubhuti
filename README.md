@@ -91,11 +91,13 @@ Three workflows in `.github/workflows/`:
 - **Health-check** (`scripts/check-opportunities.mjs`) verifies every opportunity URL
   resolves and flags expired deadlines, then opens/updates a single GitHub issue
   labelled `data-health`. It never edits data — it just tells you what's stale.
-- **AI refresh** (`scripts/refresh-opportunities.mjs`) is **opt-in**: it runs only if an
-  `ANTHROPIC_API_KEY` repo secret is set. It asks Claude (with web search) to re-verify
-  the list and opens a **pull request** for review — it never auto-merges and never
-  fabricates data into production. To enable: add the secret under
-  *Settings → Secrets and variables → Actions*.
+- **AI refresh** (`scripts/refresh-opportunities.mjs`) is **opt-in and free**: it runs only
+  if a `GEMINI_API_KEY` repo secret is set. It asks **Google Gemini** (free tier, with web
+  search grounding so it verifies real programs) to re-verify the list and opens a **pull
+  request** for review — it never auto-merges and never fabricates data into production. To
+  enable: grab a free key at <https://aistudio.google.com/apikey> (no billing) and add it
+  under *Settings → Secrets and variables → Actions*. A weekly run sits comfortably inside
+  the free quota, and the script uses the REST API + built-in `fetch` (no dependency).
 
 ## Project structure
 
