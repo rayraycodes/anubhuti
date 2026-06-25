@@ -101,15 +101,21 @@ function validate(items) {
   return clean;
 }
 
-// Call Gemini, retrying transient errors and falling back across models.
-async function generate() {
-  const body = JSON.stringify({
+function buildBody(model) {
+  const generationConfig = { temperature: 0.2, maxOutputTokens: 8192 };
+  // Gemini 2.5 models "think" by default, which eats the output-token budget and
+  // can leave no room for the JSON. Disable it for the extraction task.
+  if (model.includes('2.5')) generationConfig.thinkingConfig = { thinkingBudget: 0 };
+  return JSON.stringify({
     systemInstruction: { parts: [{ text: SYSTEM }] },
     contents: [{ role: 'user', parts: [{ text: USER }] }],
     tools: [{ google_search: {} }], // web-search grounding
-    generationConfig: { temperature: 0.2, maxOutputTokens: 8192 },
+    generationConfig,
   });
+}
 
+// Call Gemini, retrying transient errors and falling back across models.
+async function generate() {
   let lastErr = 'no attempt made';
   for (const model of MODELS) {
     for (let attempt = 0; attempt < 3; attempt++) {
@@ -122,7 +128,7 @@ async function generate() {
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body,
+        body: buildBody(model),
       });
       if (res.ok) return res.json();
       lastErr = `${model} HTTP ${res.status}: ${(await res.text()).slice(0, 160)}`;
@@ -143,7 +149,17 @@ async function run() {
     .join('\n');
   if (!text) throw new Error(`Empty model output (finishReason: ${cand.finishReason})`);
 
-  const refreshed = validate(extractJsonArray(text));
+  let refreshed;
+  try {
+    refreshed = validate(extractJsonArray(text));
+  } catch (e) {
+    // Surface what the model actually returned so failures are diagnosable.
+    throw new Error(
+      `${e.message} (finishReason: ${cand.finishReason}; output starts: ${JSON.stringify(
+        text.slice(0, 220),
+      )} … ends: ${JSON.stringify(text.slice(-220))})`,
+    );
+  }
   if (refreshed.length < 8) {
     throw new Error(`Refusing to write — only ${refreshed.length} valid items parsed (looks wrong)`);
   }
