@@ -240,5 +240,16 @@
     "deadline": null,
     "url": "https://www.eastwestcenter.org/projects/young-south-asian-leaders-initiative-ysali",
     "summary": "Regional leadership workshops on innovation, civic engagement and entrepreneurship for Nepali youth."
+  },
+  {
+    "id": "aiesec-global-volunteer",
+    "title": "AIESEC Global Volunteer",
+    "org": "AIESEC in Nepal",
+    "category": "Volunteering",
+    "region": "Global",
+    "funded": false,
+    "deadline": null,
+    "url": "https://aiesec.org/global-volunteer",
+    "summary": "Short-term international volunteer projects focused on social impact and cultural understanding."
   }
 ]
