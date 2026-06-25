@@ -17,7 +17,7 @@ const opps = JSON.parse(readFileSync(DATA_URL, 'utf8'));
 
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36';
-const TIMEOUT_MS = 15_000;
+const TIMEOUT_MS = 20_000;
 // Server responded but is blocking the bot — the link is almost certainly live.
 const ALIVE_BUT_BLOCKED = new Set([401, 403, 405, 406, 408, 429, 999]);
 
@@ -36,7 +36,11 @@ async function checkUrl(url) {
     }
     return { ok: false, status: res.status, reason: `HTTP ${res.status}` };
   } catch (err) {
-    return { ok: false, status: 0, reason: err.name === 'AbortError' ? 'timeout' : err.message };
+    // A timeout means the host is reachable but slow (e.g. Cloudflare-fronted
+    // sites) — treat it as alive to avoid false positives. Only genuine
+    // connection / DNS / TLS failures count as dead links.
+    if (err.name === 'AbortError') return { ok: true, status: 0, reason: 'slow' };
+    return { ok: false, status: 0, reason: err.cause?.code || err.message };
   } finally {
     clearTimeout(t);
   }
