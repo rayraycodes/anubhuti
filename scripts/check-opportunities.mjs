@@ -18,8 +18,10 @@ const opps = JSON.parse(readFileSync(DATA_URL, 'utf8'));
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36';
 const TIMEOUT_MS = 20_000;
-// Server responded but is blocking the bot — the link is almost certainly live.
-const ALIVE_BUT_BLOCKED = new Set([401, 403, 405, 406, 408, 429, 999]);
+// Only these statuses mean the link is genuinely broken. Everything else — incl.
+// 401/403/406/415/429 from bot-blocking CDNs/WAFs — means the server is up and the
+// URL is routable (it works in a browser), so we don't flag it.
+const isDead = (status) => status === 404 || status === 410 || status >= 500;
 
 async function checkUrl(url) {
   const ctrl = new AbortController();
@@ -31,10 +33,8 @@ async function checkUrl(url) {
       signal: ctrl.signal,
       headers: { 'user-agent': UA, accept: '*/*' },
     });
-    if (res.ok || res.status < 400 || ALIVE_BUT_BLOCKED.has(res.status)) {
-      return { ok: true, status: res.status };
-    }
-    return { ok: false, status: res.status, reason: `HTTP ${res.status}` };
+    if (isDead(res.status)) return { ok: false, status: res.status, reason: `HTTP ${res.status}` };
+    return { ok: true, status: res.status };
   } catch (err) {
     // A timeout means the host is reachable but slow (e.g. Cloudflare-fronted
     // sites) — treat it as alive to avoid false positives. Only genuine
