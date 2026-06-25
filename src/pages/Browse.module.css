@@ -214,6 +214,24 @@
   color: var(--anu-stone-200);
   line-height: 1.5;
 }
+.extLink {
+  color: var(--color-brand-strong);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.extLink:hover {
+  color: var(--color-brand);
+}
+.extLinkOnDark {
+  color: var(--anu-sun-300);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.extLinkOnDark:hover {
+  color: var(--anu-sun-200);
+}
 
 @media (max-width: 760px) {
   .searchBar {

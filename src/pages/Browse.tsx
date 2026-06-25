@@ -18,6 +18,8 @@ import type { AppActions } from '../app-actions';
 import styles from './Browse.module.css';
 
 const ANY_REGION = 'Any region';
+// Global aggregator we point users to for opportunities beyond our curated list.
+const YOUTH_OPPORTUNITIES_URL = 'https://www.youthop.com';
 
 export function Browse({
   actions,
@@ -159,12 +161,21 @@ export function Browse({
               </span>
               <div className={styles.emptyTitle}>No opportunities match yet</div>
               <div className={styles.emptySub}>
-                Try a different search or region — or{' '}
+                Try a different search or region,{' '}
                 <a
                   onClick={clearAll}
                   style={{ color: 'var(--color-brand-strong)', cursor: 'pointer', fontWeight: 600 }}
                 >
                   clear the filters
+                </a>
+                , or explore thousands more on{' '}
+                <a
+                  className={styles.extLink}
+                  href={YOUTH_OPPORTUNITIES_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Youth Opportunities ↗
                 </a>
                 .
               </div>
@@ -179,7 +190,17 @@ export function Browse({
             <div className={styles.ctaText}>
               <h2 className={styles.ctaTitle}>Know an opportunity we're missing?</h2>
               <p className={styles.ctaLede}>
-                Post it in seconds — free — and it shows up here for everyone.
+                Post it in seconds — free — and it shows up here for everyone. Or explore
+                thousands of global listings on{' '}
+                <a
+                  className={styles.extLinkOnDark}
+                  href={YOUTH_OPPORTUNITIES_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Youth Opportunities ↗
+                </a>
+                .
               </p>
             </div>
             <Button
