@@ -13,7 +13,10 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const MODEL = 'gemini-2.5-flash'; // free tier; swap to 'gemini-2.0-flash' if you prefer
+// Free-tier models, tried in order — falls back to the second if the first is busy.
+const MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+const RETRY_STATUSES = new Set([429, 500, 502, 503, 504]); // transient — worth retrying
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const KEY = process.env.GEMINI_API_KEY;
 if (!KEY) {
   console.error('GEMINI_API_KEY not set — nothing to do.');
@@ -98,24 +101,39 @@ function validate(items) {
   return clean;
 }
 
-async function run() {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`;
-  const body = {
+// Call Gemini, retrying transient errors and falling back across models.
+async function generate() {
+  const body = JSON.stringify({
     systemInstruction: { parts: [{ text: SYSTEM }] },
     contents: [{ role: 'user', parts: [{ text: USER }] }],
     tools: [{ google_search: {} }], // web-search grounding
     generationConfig: { temperature: 0.2, maxOutputTokens: 8192 },
-  };
-
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(body),
   });
-  if (!res.ok) {
-    throw new Error(`Gemini API ${res.status}: ${(await res.text()).slice(0, 300)}`);
+
+  let lastErr = 'no attempt made';
+  for (const model of MODELS) {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      if (attempt > 0) {
+        const wait = 8000 * attempt; // 8s, then 16s
+        console.log(`  ${lastErr} — retrying ${model} in ${wait / 1000}s`);
+        await sleep(wait);
+      }
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${KEY}`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body,
+      });
+      if (res.ok) return res.json();
+      lastErr = `${model} HTTP ${res.status}: ${(await res.text()).slice(0, 160)}`;
+      if (!RETRY_STATUSES.has(res.status)) break; // non-transient → try the next model
+    }
   }
-  const data = await res.json();
+  throw new Error(`Gemini unavailable after retries — ${lastErr}`);
+}
+
+async function run() {
+  const data = await generate();
   const cand = data.candidates?.[0];
   if (!cand) throw new Error(`No candidate returned (${JSON.stringify(data).slice(0, 300)})`);
 
