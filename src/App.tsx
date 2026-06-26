@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Landing } from './pages/Landing';
 import { Browse } from './pages/Browse';
 import { Projects } from './pages/Projects';
@@ -12,6 +12,30 @@ import type { NavTarget, Page } from './types';
 
 const STORAGE_KEY = 'anubhuti.posted.v1';
 
+// ---- Routing: each page maps to a real URL under the /anubhuti/ base --------
+const BASE = import.meta.env.BASE_URL; // '/anubhuti/'
+const PATH_FOR: Record<Page, string> = {
+  home: '',
+  browse: 'browse',
+  projects: 'projects',
+  about: 'about',
+  circle: 'circle',
+};
+const PAGE_FOR: Record<string, Page> = {
+  '': 'home',
+  browse: 'browse',
+  projects: 'projects',
+  about: 'about',
+  circle: 'circle',
+};
+
+function pageFromLocation(): Page {
+  let p = window.location.pathname;
+  if (p.startsWith(BASE)) p = p.slice(BASE.length);
+  p = p.replace(/^\/+|\/+$/g, ''); // trim slashes
+  return PAGE_FOR[p] ?? 'home';
+}
+
 function loadPosted(): Opportunity[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -22,11 +46,25 @@ function loadPosted(): Opportunity[] {
 }
 
 export default function App() {
-  const [page, setPage] = useState<Page>('home');
+  const [page, setPage] = useState<Page>(pageFromLocation);
   const [posted, setPosted] = useState<Opportunity[]>(loadPosted);
   const [detail, setDetail] = useState<Opportunity | null>(null);
   const [postOpen, setPostOpen] = useState(false);
   const [browseFilters, setBrowseFilters] = useState<OppFilters>({});
+
+  // Keep the rendered page in sync with the browser back/forward buttons.
+  useEffect(() => {
+    const onPop = () => setPage(pageFromLocation());
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
+  const navigateTo = (to: Page) => {
+    const url = BASE + PATH_FOR[to];
+    if (window.location.pathname !== url) window.history.pushState(null, '', url);
+    setPage(to);
+    window.scrollTo({ top: 0 });
+  };
 
   // User-posted opportunities first, then the curated real ones.
   const opportunities = useMemo(() => [...posted, ...OPPORTUNITIES], [posted]);
@@ -34,13 +72,11 @@ export default function App() {
   const actions: AppActions = {
     onNav: (to: NavTarget) => {
       if (to === 'platform') return; // reserved (e.g. sign-in) — not built
-      setPage(to);
-      window.scrollTo({ top: 0 });
+      navigateTo(to);
     },
     goBrowse: (filters = {}) => {
       setBrowseFilters(filters);
-      setPage('browse');
-      window.scrollTo({ top: 0 });
+      navigateTo('browse');
     },
     openDetail: (o) => setDetail(o),
     openPost: () => setPostOpen(true),
@@ -58,8 +94,7 @@ export default function App() {
     });
     setPostOpen(false);
     setBrowseFilters({});
-    setPage('browse');
-    window.scrollTo({ top: 0 });
+    navigateTo('browse');
     setDetail(o);
   };
 
