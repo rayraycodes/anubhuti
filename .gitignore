@@ -26,3 +26,4 @@ anubhuti-design-system/
 # Stray local files (installers, downloads) — not part of the project
 *.pkg
 *.pdf
+*.pptx
