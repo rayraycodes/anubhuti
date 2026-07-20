@@ -117,7 +117,7 @@
     "region": "Lalitpur",
     "funded": false,
     "deadline": null,
-    "url": "https://np.linkedin.com/company/hult-prize-nepal",
+    "url": "https://www.hultprize.org/where-we-are/asia/nepal/",
     "summary": "National student social-entrepreneurship competition feeding into Hult Prize global finals."
   },
   {
@@ -149,7 +149,7 @@
     "category": "Awards",
     "region": "Nepal",
     "funded": false,
-    "deadline": "2026-07-25",
+    "deadline": null,
     "url": "https://glocalteenhero.com/",
     "summary": "Recognition platform honouring teen changemakers aged 13–19 for leadership and social impact."
   },
@@ -187,17 +187,6 @@
     "summary": "Community projects in women’s empowerment, health, child development and youth near Kathmandu."
   },
   {
-    "id": "jcyc-internship",
-    "title": "JCYC Nepal Internship Program",
-    "org": "Junior Chamber Youth Council Nepal",
-    "category": "Internships",
-    "region": "Kathmandu",
-    "funded": false,
-    "deadline": null,
-    "url": "https://jcycnepal.wordpress.com/join-now/interns/",
-    "summary": "Three-to-six-month internships supporting Nepali children and youth-focused community projects."
-  },
-  {
     "id": "undp-internship",
     "title": "UNDP Nepal Internship Programme",
     "org": "United Nations Development Programme",
@@ -216,7 +205,7 @@
     "region": "Nepal",
     "funded": true,
     "deadline": null,
-    "url": "https://www2.fundsforngos.org/environment/apply-for-all-in-solutions-fellowship-program-nepal/",
+    "url": "https://www.allinsolutions.org/fellowship",
     "summary": "Six-month fellowship for emerging leaders working on democracy, climate justice and social equity."
   },
   {
@@ -251,5 +240,27 @@
     "deadline": null,
     "url": "https://aiesec.org/global-volunteer",
     "summary": "Short-term international volunteer projects focused on social impact and cultural understanding."
+  },
+  {
+    "id": "yale-young-global-scholars",
+    "title": "Yale Young Global Scholars (YYGS)",
+    "org": "Yale University",
+    "category": "Workshops",
+    "region": "Global",
+    "funded": true,
+    "deadline": null,
+    "url": "https://globalscholars.yale.edu/",
+    "summary": "Fully funded summer academic program for high school students worldwide at Yale University."
+  },
+  {
+    "id": "rotary-peace-fellowship",
+    "title": "Rotary Peace Fellowship",
+    "org": "Rotary International",
+    "category": "Fellowships",
+    "region": "Global",
+    "funded": true,
+    "deadline": null,
+    "url": "https://www.rotary.org/our-programs/peace-fellowships",
+    "summary": "Fully funded master's or certificate program in peace and development studies at partner universities."
   }
 ]
