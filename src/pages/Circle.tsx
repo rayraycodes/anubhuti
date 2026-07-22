@@ -12,6 +12,73 @@ import styles from './Circle.module.css';
 
 const MENTOR_FIELDS = ['AI', 'ML', 'Research', 'Data', 'Design', 'Policy'];
 
+const VIRAL_PILLARS: [icon: string, title: string, detail: string][] = [
+  [
+    'compass',
+    'One clear promise',
+    'Focus on one audience and one transformation so people can instantly repeat it.',
+  ],
+  [
+    'play',
+    'Build in public daily',
+    'Post short progress clips and screenshots every day so people follow the journey, not just the result.',
+  ],
+  [
+    'trophy',
+    'Challenge + referral loop',
+    'Run a 7-day challenge and reward referrals with templates, shoutouts, and early access.',
+  ],
+  [
+    'users',
+    'Community onboarding',
+    'Bring everyone into one Discord/Telegram hub with a clear welcome flow and first action.',
+  ],
+  [
+    'sparkles',
+    'Social proof cadence',
+    'Share member wins every day and run weekly live Q&A/demo sessions that become fresh clips.',
+  ],
+  [
+    'heart-handshake',
+    'Ambassador flywheel',
+    'DM your most active members, promote them to ambassadors/mods, and let them lead new members.',
+  ],
+];
+
+const VIRAL_LOOP = [
+  'Content',
+  'Free resource',
+  'Join community',
+  'Take challenge',
+  'Share result',
+  'Create more content',
+];
+
+const REFERRAL_REWARDS = ['Template bundle', 'Public shoutout', 'Early-access invites'];
+
+const VIRAL_SPRINT: [day: string, action: string][] = [
+  ['Day 1', 'Define your one-line promise and audience.'],
+  ['Day 2', 'Set up Discord/Telegram channels and welcome message.'],
+  ['Day 3', 'Publish the first short build-in-public post.'],
+  ['Day 4', 'Launch your free resource and capture sign-ups.'],
+  ['Day 5', 'Announce the 7-day challenge with clear rules.'],
+  ['Day 6', 'Activate referral rewards and invite tracking.'],
+  ['Day 7', 'Share first participant wins and testimonials.'],
+  ['Day 8', 'Run live Q&A/teardown and clip highlights.'],
+  ['Day 9', 'Feature top members and tag their results.'],
+  ['Day 10', 'DM high-activity users to become ambassadors.'],
+  ['Day 11', 'Post challenge leaderboard and momentum update.'],
+  ['Day 12', 'Publish a community success story thread.'],
+  ['Day 13', 'Host a second live session focused on wins.'],
+  ['Day 14', 'Review metrics and double down on best channel/format.'],
+];
+
+const METRICS: [metric: string, reason: string][] = [
+  ['Invite rate', 'Tells you whether members are actively pulling in others.'],
+  ['Activation rate', 'Shows whether new joins complete their first meaningful action.'],
+  ['7-day retention', 'Confirms whether people stay engaged after week one.'],
+];
+
 // Honest, derived figures only — counts of what's actually in the platform.
 const STATS: [num: string, label: string][] = [
   [String(PARTNERS.length), 'Partner networks'],
@@ -107,6 +174,68 @@ export function Circle({ actions }: { actions: AppActions }) {
                 </span>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Viral growth playbook */}
+      <section className={styles.playbookSection}>
+        <div className="container container--narrow">
+          <div className={styles.playbookHead}>
+            <Eyebrow>Free + fast growth</Eyebrow>
+            <h2 className={styles.playbookTitle}>Viral community playbook</h2>
+            <p className={styles.playbookLede}>
+              A practical growth system to turn daily content into a community that keeps inviting
+              more people.
+            </p>
+          </div>
+
+          <div className={styles.pillarGrid}>
+            {VIRAL_PILLARS.map(([icon, title, detail]) => (
+              <article key={title} className={styles.pillarCard}>
+                <span className={styles.pillarIcon}>
+                  <Icon name={icon} size={20} />
+                </span>
+                <h3 className={styles.pillarTitle}>{title}</h3>
+                <p className={styles.pillarDetail}>{detail}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className={styles.loopBand}>
+            {VIRAL_LOOP.map((step, idx) => (
+              <div key={step} className={styles.loopStep}>
+                <span>{step}</span>
+                {idx < VIRAL_LOOP.length - 1 ? <Icon name="arrow-right" size={14} /> : null}
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.rewardRow}>
+            <span className={styles.rewardLabel}>Referral rewards</span>
+            {REFERRAL_REWARDS.map((reward) => (
+              <span key={reward} className={styles.rewardChip}>
+                {reward}
+              </span>
+            ))}
+          </div>
+
+          <div className={styles.sprintGrid}>
+            {VIRAL_SPRINT.map(([day, action]) => (
+              <article key={day} className={styles.sprintCard}>
+                <div className={styles.sprintDay}>{day}</div>
+                <p className={styles.sprintAction}>{action}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className={styles.metricsGrid}>
+            {METRICS.map(([metric, reason]) => (
+              <article key={metric} className={styles.metricCard}>
+                <h3 className={styles.metricTitle}>{metric}</h3>
+                <p className={styles.metricReason}>{reason}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>

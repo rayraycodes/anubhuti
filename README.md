@@ -17,7 +17,8 @@ It renders five pages with in-page navigation; the active nav tab is highlighted
 - **About** (`about`) — story hero, vision band, the gaps we want to close, the four-move
   approach, values, and a CTA.
 - **Circle** (`circle`) — the partner network (Rotary, Rotaract, Leo, Lions, Toastmasters,
-  OLE Nepal), derived figures, the diaspora-mentor band, and a CTA.
+  OLE Nepal), derived figures, the diaspora-mentor band, a free+fast viral community playbook
+  (14-day sprint, referral rewards, growth loop, weekly metrics), and a CTA.
 
 The Landing + About pages mirror the design system's `Landing.jsx` / `About.jsx`; the
 Opportunities, Projects and Circle pages extend the kit using the same DS primitives.
