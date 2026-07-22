@@ -221,6 +221,169 @@
   text-transform: uppercase;
 }
 
+/* ============================================================ Viral playbook */
+.playbookSection {
+  padding: 64px 0 0;
+}
+.playbookHead {
+  max-width: 700px;
+}
+.playbookTitle {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(26px, 3.4vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+.playbookLede {
+  margin: 14px 0 0;
+  font-size: 17px;
+  line-height: 1.58;
+  color: var(--text-body);
+}
+
+.pillarGrid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.pillarCard {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  background: var(--surface-card);
+  padding: 20px;
+  box-shadow: var(--shadow-xs);
+}
+.pillarIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  color: var(--color-brand);
+  background: color-mix(in srgb, var(--color-brand) 12%, white);
+}
+.pillarTitle {
+  margin: 12px 0 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-strong);
+}
+.pillarDetail {
+  margin: 9px 0 0;
+  font-size: 14.5px;
+  line-height: 1.58;
+  color: var(--text-muted);
+}
+
+.loopBand {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.loopStep {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rewardRow {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.rewardLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.rewardChip {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-soft);
+  color: var(--text-body);
+  font-size: 12.5px;
+}
+
+.sprintGrid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.sprintCard {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 14px 15px;
+  background: var(--surface-card);
+}
+.sprintDay {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+.sprintAction {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-body);
+}
+
+.metricsGrid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.metricCard {
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+  border: 1px solid var(--border-subtle);
+  padding: 16px;
+}
+.metricTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+.metricReason {
+  margin: 7px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
 /* ============================================================ CTA */
 .ctaSection {
   padding: 64px 0 80px;
@@ -262,6 +425,12 @@
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .pillarGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
 }
 @media (max-width: 600px) {
   .grid {
@@ -273,5 +442,9 @@
   .diaspora,
   .ctaBand {
     padding: 48px 24px;
+  }
+  .pillarGrid,
+  .sprintGrid {
+    grid-template-columns: 1fr;
   }
 }
