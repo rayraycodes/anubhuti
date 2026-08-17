@@ -1,6 +1,6 @@
 # Anubhuti — Next Steps
 
-Reviewed: 2026-08-16
+Reviewed: 2026-08-17
 
 Anubhuti is a live, source-linked youth-opportunity marketing site. The immediate priority is
 data trust and conversion readiness, followed by a deliberate decision about whether to build
@@ -28,7 +28,10 @@ the deferred platform experience.
    - Verify the National Youth Conference URL and replace it only with a confirmed canonical URL,
      or mark the opportunity unavailable with a source note.
    - Confirm the Glocal Teen Hero deadline and update its status/deadline from an authoritative
-     source. Do not extend or invent a date.
+     source. Do not extend or invent a date. **Completed 2026-08-17:** the official 2026 site is
+     live and updated, but does not publish a verifiable deadline; the stale `2026-07-25` value
+     was removed and the opportunity now has a null deadline. `npm run data:check` reports 0
+     expired deadlines.
    - Refresh `data-health-report.md` again after either finding is resolved.
 
 ## Priority 1 — Make the current product shippable
@@ -82,7 +85,22 @@ placeholder and run the focused accessibility pass.
 
 Source: repository README, package scripts, source scan, and checks run on 2026-08-16.
 
-## Latest loop result — 2026-08-16
+## Latest loop result — 2026-08-17
+
+- Completed: rechecked the official Glocal Teen Hero 2026 site and removed the unverifiable,
+  expired `2026-07-25` deadline from `src/data/opportunities.json`; refreshed
+  `data-health-report.md`.
+- Checks: `npm run data:check` passed with one NYCA HTTP 500 link and zero expired deadlines;
+  `npm test` passed (14/14), `npm run typecheck` passed, and `npm run build` passed. Vitest
+  emitted only existing Vite deprecation warnings.
+- GitHub: issue #6 remains open for the single NYCA source failure; `main` was up to date before
+  this run. Branch protection is not configured; GitHub Project listing is blocked by the token's
+  missing `read:project` scope.
+- Notion: update unavailable in this environment; the local plan and brain remain authoritative.
+- Next granular task: verify the NYCA canonical article or mark the opportunity unavailable with a
+  source note, without replacing it based only on a parent navigation link.
+
+## Previous loop result — 2026-08-16
 
 - Completed: repaired incomplete optional macOS native dependencies for Rollup, Rolldown, and
   esbuild in `node_modules` without changing `package-lock.json` or source files.
