@@ -1,6 +1,6 @@
 # Anubhuti — Next Steps
 
-Reviewed: 2026-08-17
+Reviewed: 2026-08-18
 
 Anubhuti is a live, source-linked youth-opportunity marketing site. The immediate priority is
 data trust and conversion readiness, followed by a deliberate decision about whether to build
@@ -109,3 +109,20 @@ Source: repository README, package scripts, source scan, and checks run on 2026-
 - GitHub: authenticated as `rayraycodes`; no source commit was needed for the dependency repair.
 - Next granular task: verify the National Youth Conference source and the Glocal Teen Hero deadline
   from authoritative sources before changing opportunity data.
+
+## Latest loop result — 2026-08-18
+
+- Blocked: the exact NYCA conference article still returns HTTP 500, while the official
+  `https://www.nyca.net.np/` homepage returns HTTP 200. No authoritative canonical conference
+  article or current availability was published on the homepage, so the source URL was not
+  replaced and the opportunity was not marked unavailable without a source note.
+- Completed safe slice: refreshed `data-health-report.md` and verified the current findings.
+- Checks: `npm run data:check` reports one NYCA HTTP 500 and zero expired deadlines; `npm test`
+  passed (14/14); `npm run typecheck` passed; `npm run build` passed. Existing Vite deprecation
+  warnings only.
+- GitHub: issue #6 remains open; the finding was rechecked on 2026-08-18. Branch protection is
+  not configured; GitHub Project listing remains blocked by the token's missing `read:project`
+  scope.
+- Notion: update unavailable in this environment; local Markdown remains authoritative.
+- Next granular task: obtain an authoritative NYCA canonical article/availability decision, or
+  proceed with the next safe Priority 1 accessibility audit slice.
