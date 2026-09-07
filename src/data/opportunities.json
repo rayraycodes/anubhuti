@@ -6,7 +6,7 @@
     "category": "Fellowships",
     "region": "Nepal",
     "funded": true,
-    "deadline": null,
+    "deadline": "2026-11-30",
     "url": "https://www.teachfornepal.org/tfn/apply-now/",
     "summary": "Two-year paid fellowship placing graduates as full-time teachers in under-resourced Nepali schools."
   },
@@ -61,8 +61,8 @@
     "category": "Exchange",
     "region": "Global",
     "funded": true,
-    "deadline": null,
-    "url": "https://usefnepal.org/",
+    "deadline": "2026-12-15",
+    "url": "https://usefnepal.org/global-ugrad",
     "summary": "Fully funded one-semester exchange for Nepali undergraduates to study at U.S. institutions."
   },
   {
@@ -72,8 +72,8 @@
     "category": "Scholarships",
     "region": "Global",
     "funded": true,
-    "deadline": null,
-    "url": "https://usefnepal.org/",
+    "deadline": "2027-05-15",
+    "url": "https://usefnepal.org/fulbright-foreign-student-program",
     "summary": "Fully funded scholarship for Nepali citizens to pursue a master's degree in the United States."
   },
   {
@@ -83,7 +83,7 @@
     "category": "Scholarships",
     "region": "Global",
     "funded": true,
-    "deadline": null,
+    "deadline": "2026-11-01",
     "url": "https://www.chevening.org/scholarship/nepal/",
     "summary": "Fully funded UK master's scholarship for outstanding Nepali professionals with leadership potential."
   },
@@ -117,7 +117,7 @@
     "region": "Lalitpur",
     "funded": false,
     "deadline": null,
-    "url": "https://np.linkedin.com/company/hult-prize-nepal",
+    "url": "https://www.hultprize.org/nepal/",
     "summary": "National student social-entrepreneurship competition feeding into Hult Prize global finals."
   },
   {
@@ -205,7 +205,7 @@
     "region": "Kathmandu",
     "funded": true,
     "deadline": null,
-    "url": "https://www.undp.org/careers/people-programmes",
+    "url": "https://www.undp.org/nepal/jobs-and-internships",
     "summary": "Stipended internships for Nepali students and graduates in development programmes in Kathmandu."
   },
   {
@@ -216,7 +216,7 @@
     "region": "Nepal",
     "funded": true,
     "deadline": null,
-    "url": "https://www2.fundsforngos.org/environment/apply-for-all-in-solutions-fellowship-program-nepal/",
+    "url": "https://www.allinsolutions.org/fellowship",
     "summary": "Six-month fellowship for emerging leaders working on democracy, climate justice and social equity."
   },
   {
@@ -251,5 +251,38 @@
     "deadline": null,
     "url": "https://aiesec.org/global-volunteer",
     "summary": "Short-term international volunteer projects focused on social impact and cultural understanding."
+  },
+  {
+    "id": "youth-co-lab-nepal",
+    "title": "Youth Co:Lab Nepal",
+    "org": "UNDP Nepal",
+    "category": "Competitions",
+    "region": "Nepal",
+    "funded": true,
+    "deadline": null,
+    "url": "https://www.youthcolab.org/where-we-work/nepal/",
+    "summary": "Platform empowering young social entrepreneurs and innovators to achieve the SDGs in Nepal."
+  },
+  {
+    "id": "unicef-youth-advocate",
+    "title": "UNICEF Nepal Youth Advocate Programme",
+    "org": "UNICEF Nepal",
+    "category": "Fellowships",
+    "region": "Nepal",
+    "funded": true,
+    "deadline": null,
+    "url": "https://www.unicef.org/nepal/careers",
+    "summary": "Opportunity for young Nepali professionals to contribute to UNICEF's work for children's rights."
+  },
+  {
+    "id": "world-bank-youth-summit",
+    "title": "World Bank Nepal Youth Summit",
+    "org": "World Bank Nepal",
+    "category": "Conferences",
+    "region": "Kathmandu",
+    "funded": false,
+    "deadline": null,
+    "url": "https://www.worldbank.org/en/country/nepal/events",
+    "summary": "Annual summit engaging youth in discussions and solutions for Nepal's development challenges."
   }
 ]
