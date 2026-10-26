@@ -6,7 +6,7 @@
     "category": "Fellowships",
     "region": "Nepal",
     "funded": true,
-    "deadline": null,
+    "deadline": "2027-01-31",
     "url": "https://www.teachfornepal.org/tfn/apply-now/",
     "summary": "Two-year paid fellowship placing graduates as full-time teachers in under-resourced Nepali schools."
   },
@@ -61,8 +61,8 @@
     "category": "Exchange",
     "region": "Global",
     "funded": true,
-    "deadline": null,
-    "url": "https://usefnepal.org/",
+    "deadline": "2027-04-26",
+    "url": "https://usefnepal.org/applicants/global-ugrad-program/",
     "summary": "Fully funded one-semester exchange for Nepali undergraduates to study at U.S. institutions."
   },
   {
@@ -72,8 +72,8 @@
     "category": "Scholarships",
     "region": "Global",
     "funded": true,
-    "deadline": null,
-    "url": "https://usefnepal.org/",
+    "deadline": "2027-05-15",
+    "url": "https://usefnepal.org/applicants/fulbright-foreign-student-program/",
     "summary": "Fully funded scholarship for Nepali citizens to pursue a master's degree in the United States."
   },
   {
@@ -83,7 +83,7 @@
     "category": "Scholarships",
     "region": "Global",
     "funded": true,
-    "deadline": null,
+    "deadline": "2027-11-07",
     "url": "https://www.chevening.org/scholarship/nepal/",
     "summary": "Fully funded UK master's scholarship for outstanding Nepali professionals with leadership potential."
   },
@@ -117,7 +117,7 @@
     "region": "Lalitpur",
     "funded": false,
     "deadline": null,
-    "url": "https://np.linkedin.com/company/hult-prize-nepal",
+    "url": "https://www.hultprize.org/where-we-are/asia/nepal/",
     "summary": "National student social-entrepreneurship competition feeding into Hult Prize global finals."
   },
   {
@@ -251,5 +251,27 @@
     "deadline": null,
     "url": "https://aiesec.org/global-volunteer",
     "summary": "Short-term international volunteer projects focused on social impact and cultural understanding."
+  },
+  {
+    "id": "rotary-peace-fellowship",
+    "title": "Rotary Peace Fellowship",
+    "org": "Rotary International",
+    "category": "Fellowships",
+    "region": "Global",
+    "funded": true,
+    "deadline": "2027-05-15",
+    "url": "https://www.rotary.org/our-programs/peace-fellowships",
+    "summary": "Fully funded master's degree or certificate in peace and development studies at a Rotary Peace Center."
+  },
+  {
+    "id": "erasmus-mundus-scholarships",
+    "title": "Erasmus Mundus Joint Master Degrees (EMJMDs)",
+    "org": "European Union",
+    "category": "Scholarships",
+    "region": "Global",
+    "funded": true,
+    "deadline": "2027-01-31",
+    "url": "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/erasmus-mundus-joint-master-degrees",
+    "summary": "Fully funded master's scholarships for international students to study in Europe."
   }
 ]
