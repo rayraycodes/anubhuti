@@ -138,7 +138,7 @@
     "category": "Competitions",
     "region": "Kathmandu",
     "funded": false,
-    "deadline": null,
+    "deadline": "2027-06-11",
     "url": "https://deerhack.deerwalk.edu.np/",
     "summary": "Annual 48-hour hackathon in Kathmandu for students to build AI, blockchain and environment solutions."
   },
@@ -215,7 +215,7 @@
     "category": "Fellowships",
     "region": "Nepal",
     "funded": true,
-    "deadline": null,
+    "deadline": "2027-01-15",
     "url": "https://www2.fundsforngos.org/environment/apply-for-all-in-solutions-fellowship-program-nepal/",
     "summary": "Six-month fellowship for emerging leaders working on democracy, climate justice and social equity."
   },
@@ -251,5 +251,38 @@
     "deadline": null,
     "url": "https://aiesec.org/global-volunteer",
     "summary": "Short-term international volunteer projects focused on social impact and cultural understanding."
+  },
+  {
+    "id": "rotary-peace-fellowship",
+    "title": "Rotary Peace Fellowship",
+    "org": "Rotary International",
+    "category": "Fellowships",
+    "region": "Global",
+    "funded": true,
+    "deadline": "2027-05-15",
+    "url": "https://www.rotary.org/our-programs/peace-fellowships",
+    "summary": "Fully funded master's or certificate programs in peace and conflict resolution at Rotary Peace Centers."
+  },
+  {
+    "id": "international-youth-leadership-dialogue",
+    "title": "International Youth Leadership Dialogue",
+    "org": "IYLD",
+    "category": "Conferences",
+    "region": "Global",
+    "funded": true,
+    "deadline": "2027-01-15",
+    "url": "https://iyld.org/",
+    "summary": "Fully funded international summit in the UK for youth to practice diplomacy, negotiation, and public speaking."
+  },
+  {
+    "id": "global-youth-leadership-summit",
+    "title": "Global Youth Leadership Summit (GYLS)",
+    "org": "Various Organizers",
+    "category": "Conferences",
+    "region": "Kathmandu",
+    "funded": false,
+    "deadline": "2026-12-16",
+    "url": "https://www.allconferencealert.com/kathmandu/youth-conferences",
+    "summary": "A summit in Kathmandu bringing together professionals to explore next-generation solutions and network."
   }
 ]
